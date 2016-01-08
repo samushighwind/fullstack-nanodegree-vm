@@ -48,4 +48,4 @@ CREATE VIEW player_standings AS
                              GROUP BY player_id ) as match_totals
                 ON match_totals.player_id = win_totals.player_id ) AS stats
     ON players.id = stats.id
-    ORDER BY wins;
+    ORDER BY wins DESC;

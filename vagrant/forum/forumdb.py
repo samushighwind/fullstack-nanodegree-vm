@@ -21,8 +21,8 @@ def GetAllPosts():
     '''
     c.execute('SELECT content, time FROM posts ORDER BY time DESC')
     return (dict(zip(["content", "time"],
-      (str(bleach.clean(column)) for column in row)))
-      for row in c.fetchall())
+                     (str(bleach.clean(column)) for column in row)))
+            for row in c.fetchall())
 
 ## Add a post to the database.
 def AddPost(content):
@@ -32,5 +32,5 @@ def AddPost(content):
       content: The text content of the new post.
     '''
     c.execute("INSERT INTO posts (content) VALUES (%s)",
-      (str(bleach.clean(content)),))
+        (str(bleach.clean(content)),))
     db.commit()

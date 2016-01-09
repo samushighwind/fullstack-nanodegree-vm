@@ -22,7 +22,7 @@ CREATE TABLE players (
 CREATE TABLE match_results (
     player_id INTEGER NOT NULL REFERENCES players (id),
     round_number INTEGER NOT NULL,
-    opponent_id INTEGER NOT NULL,
+    opponent_id INTEGER NOT NULL REFERENCES players (id),
     won_round BOOLEAN NOT NULL,
     PRIMARY KEY (player_id, round_number)
 );

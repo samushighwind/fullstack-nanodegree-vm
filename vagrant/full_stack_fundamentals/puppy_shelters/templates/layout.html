@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE-edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Puppy Tycoon 2016</title>
+  <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+    <h1 class="header_text">Puppy Tycoon 2016</h1>
+  </header>
+  <main class="main_content">
+    {% block content %} {% endblock %}
+  </main>
+  <footer class="footer">
+    <p class="footer_text">Created by Ben Wiley, 2016</p>
+  </footer>
+</body>
+</html>

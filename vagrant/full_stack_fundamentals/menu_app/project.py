@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine #, desc, func UNCOMMENT IF NEEDED
+from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Restaurant, MenuItem
 from flask import Flask, request, redirect, render_template, url_for, flash, jsonify

@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block content %}
+<ul>
+  {% for puppy in puppies %}
+  <div class="puppy_card">
+    {% if puppy.profile.picture and len(puppy.profile.picture) %}
+    <img class="puppy_card_photo"
+         src="{{ puppy.profile.picture }}"
+         alt="A puppy named {{ puppy.name }}"/>
+    {% endif %}
+    <div class="puppy_info">
+      <h3 class="puppy_name">{{ puppy.name }}</h3>
+      <div class="puppy_home">
+        {% if puppy.adopters and len(puppy.adopters) }
+          {{ "ADOPTED BY %s" % ", ".join(puppy.adopters).upper() }}
+        {% elif puppy.shelter %}
+          {{ "LIVING AT %s" % puppy.shelter.upper() }}
+        {% else %}
+          NO HOME
+        {% endif %}
+      </div>
+      {% if puppy.profile.description and len(puppy.profile.description) %}
+      <div class="puppy_fact puppy_description">{{ puppy.profile.description }}</div>
+      {% endif %}
+      <div class="puppy_fact puppy_gender"><strong>Gender:</strong> {{ puppy.gender }}</div>
+      <div class="puppy_fact puppy_birthdate"><strong>Birthdate:</strong> {{ puppy.date_of_birth }}</div>
+      <div class="puppy_fact puppy_weight"><strong>Weight (lbs.):</strong> {{ puppy.weight_lbs }}</div>
+      {% if puppy.profile.description and len(puppy.profile.description) %}
+      <div class="puppy_fact puppy_special_needs">{{ puppy.profile.special_needs }}</div>
+      {% endif %}
+    </div>
+    }
+  </div>
+  {% endfor %}
+</ul>
+{% endblock %}

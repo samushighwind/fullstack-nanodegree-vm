@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-<form class="puppy_action puppy_new" action="{{ url_for('new_puppy', puppy_id=puppy.id) }}" method="post">
+<form class="puppy_action puppy_new" action="{{ url_for('new_puppy') }}" method="post">
   <h3 class="puppy_new_head">Register a new puppy</h3>
   <div class="puppy_name_field">
     <label for="name">Name</label>
@@ -19,7 +19,7 @@
   </div>
   <div class="puppy_weight_field">
     <label for="weight">Weight (lbs.)</label>
-    <input type="number" name="weight" min="1.0" max="40.0" step="0.5" value="20.0" required>
+    <input type="number" name="weight" min="1.0" max="40.0" step="0.1" value="20.0" required>
   </div>
   <div class="puppy_picture_field">
     <label for="picture">Photo URL</label>

@@ -43,8 +43,8 @@ class Puppy(Base):
     gender = Column(String(6), nullable=False)
     date_of_birth = Column(Date, nullable=False)
     weight_lbs = Column(Numeric(10), nullable=False)
-    shelter_id = Column(Integer, ForeignKey("shelter.id"), nullable=False)
-    profile_id = Column(Integer, ForeignKey("puppy_profile.id"))
+    shelter_id = Column(Integer, ForeignKey("shelter.id"))
+    profile_id = Column(Integer, ForeignKey("puppy_profile.id"), nullable=False)
     
     # establishes One-to-One relationship between Puppy and PuppyProfile
     # (without `useList=False`, could be Many-to-One)

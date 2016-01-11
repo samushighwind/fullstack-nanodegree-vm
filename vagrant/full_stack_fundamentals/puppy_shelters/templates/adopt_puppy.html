@@ -3,13 +3,11 @@
 <form class="adopt_puppy" action="{{ url_for('adopt_puppy', puppy_id=puppy.id) }}" method="post">
   <h3 class="adopt_puppy_head">Who will be adopting {{ puppy.name }}?</h3>
   <div class="adopter_selector">
-    <select name="adopter_ids">
-      {% for adopter in adopters %}
-      <option value="{{ adopter.id }}">{{ adopter.name }}</option>
-      {% endfor %}
-    </select>
+    {% for adopter in adopters %}
+    <div class="adopter_option"><label><input type="checkbox" name="adopter_id" value="{{ adopter.id }}">{{ adopter.name }}</label></div>
+    {% endfor %}
   </div>
   <div class="adopt_puppy_submit"><input type="submit" value="Confirm"></div>
 </form>
-<a href="{{ url_for('view_puppy', puppy_id=puppy.id) }}">Go back</a>
+<a href="{{ url_for('puppy', puppy_id=puppy.id) }}">Go back</a>
 {% endblock %}

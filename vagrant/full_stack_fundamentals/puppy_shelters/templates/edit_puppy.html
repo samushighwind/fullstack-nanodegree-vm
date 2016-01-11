@@ -2,7 +2,7 @@
 {% block content %}
 <form class="puppy_action puppy_edit" action="{{ url_for('edit_puppy', puppy_id=puppy.id) }}" method="post">
   <h3 class="puppy_edit_head">Edit puppy information</h3>
-  {% if puppy.profile.picture and len(puppy.profile.picture) %}
+  {% if puppy.profile.picture and puppy.profile.picture | length %}
   <img class="puppy_big_photo"
        src="{{ puppy.profile.picture }}"
        alt="A puppy named {{ puppy.name }}"/>
@@ -14,17 +14,17 @@
   <div class="puppy_gender_field">
     <label for="gender">Gender</label>
     <select name="gender">
-      <option value="female" selected="{{ 'true' if puppy.gender is 'female' else 'false' }}">female</option>
-      <option value="male" selected="{{ 'true' if puppy.gender is 'male' else 'false' }}">male</option>
+      <option value="female" {% if puppy.gender == "female" %}selected{% endif %}>female</option>
+      <option value="male" {% if puppy.gender == "male" %}selected{% endif %}>male</option>
     </select>
   </div>
   <div class="puppy_birthdate_field">
     <label for="birthdate">Birthdate</label>
-    <input type="date" name="birthdate" value="{{ str(puppy.date_of_birth) }}" required>
+    <input type="date" name="birthdate" value="{{ puppy.date_of_birth }}" required>
   </div>
   <div class="puppy_weight_field">
     <label for="weight">Weight (lbs.)</label>
-    <input type="number" name="weight" min="1.0" max="40.0" step="0.5" value="{{ puppy.weight_lbs }}" required>
+    <input type="number" name="weight" min="1.0" max="40.0" step="0.1" value="{{ puppy.weight_lbs | one_dec_place }}" required>
   </div>
   <div class="puppy_picture_field">
     <label for="picture">Photo URL</label>
@@ -40,5 +40,5 @@
   </div>
   <div class="puppy_edit_submit"><input type="submit" value="Save"></div>
 </form>
-<a href="{{ url_for('view_puppy', puppy_id=puppy.id) }}">Go back</a>
+<a href="{{ url_for('puppy', puppy_id=puppy.id) }}">Go back</a>
 {% endblock %}

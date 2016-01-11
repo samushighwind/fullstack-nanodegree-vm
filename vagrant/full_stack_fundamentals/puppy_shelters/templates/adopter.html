@@ -4,7 +4,7 @@
   <div class="adopter_info">
     <h3 class="adopter_name">{{ adopter.name }}</h3>
     <div class="adopted_puppy_photo_list">
-      {% if adopter.puppies and len(adopter.puppies) }
+      {% if adopter.puppies and len(adopter.puppies) %}
         <h4 class="adopted_puppies_head">{{ adopter }}'s Puppies</h4>
         {% for puppy in adopter.puppies %}
         <div class="adopted-puppy">

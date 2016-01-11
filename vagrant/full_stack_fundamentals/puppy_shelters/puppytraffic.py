@@ -24,6 +24,8 @@ def transfer_puppy(puppy, new_shelter, old_shelter=None):
     if old_shelter:
         old_shelter.current_occupancy -= 1
         session.add(old_shelter)
+    if len(puppy.adopters):
+        del puppy.adopters[:]
     session.commit()
     print_shelter_occupancies()
 

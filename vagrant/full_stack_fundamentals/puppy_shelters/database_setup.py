@@ -51,7 +51,8 @@ class Puppy(Base):
     profile = relationship(
         "PuppyProfile",
         cascade="all, delete-orphan",
-        backref=backref("puppy", uselist=False)
+        single_parent=True,
+        backref=backref("puppy", uselist=False, single_parent=True)
     )
 
 

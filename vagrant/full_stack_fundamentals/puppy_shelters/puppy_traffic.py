@@ -41,6 +41,9 @@ def check_in_puppy(puppy, shelter=None):
       checked in. If all shelters were full, the message will
       indicate that the puppy was not successfully checked in.
     """
+    if shelter and puppy.shelter_id and puppy.shelter_id == shelter.id:
+        return puppy.name + " was already checked into " + shelter.name + "."
+
     open_shelters = session.query(Shelter).filter(
         Shelter.current_occupancy < Shelter.maximum_capacity
     ).all()

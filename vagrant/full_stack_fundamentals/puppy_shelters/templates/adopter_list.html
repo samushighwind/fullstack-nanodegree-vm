@@ -7,23 +7,12 @@
       <h3 class="adopter_name">{{ adopter.name }}</h3>
       <div class="adopted_puppy_list">
         {% if adopter.puppies and len(adopter.puppies) }
-          <h4 class="adopted_puppies_head">{{ adopter }}'s Puppies</h4>
-          {% for puppy in adopter.puppies %}
-          <div class="adopted-puppy">
-            {% if puppy.profile.picture and len(puppy.profile.picture) %}
-            <img class="adopted_puppy_photo"
-                 src="{{ puppy.profile.picture }}"
-                 alt="{{ adopter }}'s puppy, {{ puppy.name }}"/>
-            {% endif %}
-            <div class="adopted_puppy_name">{{ puppy.name }}</div>
-          </div>
-          {% endfor %}
+          <strong>Puppies:</strong> {{ ", ".join(map(lambda p: p.name, adopter.puppies)) }}
         {% else %}
-          <div class="no_puppies_message">NO PUPPIES</div>
+          NO PUPPIES
         {% endif %}
       </div>
     </div>
-    }
   </div>
   {% endfor %}
 </ul>

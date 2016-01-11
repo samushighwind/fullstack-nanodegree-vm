@@ -11,6 +11,16 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
+#In your Python code, you should add methods for performing all of the database functionalities described below:
+
+#All CRUD operations on Puppies, Shelters, and Owners
+#Switching or Balancing Shelter Population and Protecting against overflows
+#Viewing a Puppy Profile
+#Adopting a New Puppy
+#Creating and Styling Templates (optionally with Bootstrap)
+#Adding Flash Messages
+#BONUS: Pagination
+
 
 #PUPPY SPECIFIC OPERATIONS
 

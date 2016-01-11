@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+<form class="puppy_action puppy_delete" action="{{ url_for('delete_puppy', puppy_id=puppy.id) }}" method="post">
+  <h3 class="puppy_delete_head">Are you sure you want to put {{ puppy.name }} to sleep?</h3>
+  {% if puppy.profile.picture and len(puppy.profile.picture) %}
+  <img class="puppy_big_photo"
+       src="{{ puppy.profile.picture }}"
+       alt="A puppy named {{ puppy.name }}"
+       title="Will you put {{ puppy.name }} to sleep?"/>
+  {% endif %}
+  <div class="puppy_delete_submit"><input type="submit" value="Do it."></div>
+</form>
+<a href="{{ url_for('view_puppy', puppy_id=puppy.id) }}">Go back</a>
+{% endblock %}

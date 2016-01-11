@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+<form class="switch_shelter" action="{{ url_for('switch_shelter', puppy_id=puppy.id) }}" method="post">
+  <h3 class="switch_shelter_head">Choose a shelter for {{ puppy.name }}</h3>
+  <div class="shelter_picker">
+    <select name="shelter_id" required>
+      <option value="" selected disabled>Select a shelter</option>
+      {% for shelter in shelters %}
+      <option value="{{ shelter.id }}">{{ shelter.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="switch_shelter_submit"><input type="submit" value="Check in"></div>
+</form>
+<a href="{{ url_for('view_puppy', puppy_id=puppy.id) }}">Go back</a>
+{% endblock %}

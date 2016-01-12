@@ -9,7 +9,23 @@
 </head>
 <body>
   <header class="header">
-    <h1 class="header_text">Puppy Tycoon 2016</h1>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="flash_box">
+      {% for message in messages %}
+      <div class="flash_message">{{ message }}</div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+    <a href="{{ url_for('puppy_list') }}">
+      <h1 class="header_text">Puppy Tycoon 2016</h1>
+    </a>
+    <div class="menu">
+      <span><a href="{{ url_for('puppy_list') }}">Puppies</a></span>
+      <span><a href="{{ url_for('shelter_list') }}">Shelters</a></span>
+      <span><a href="{{ url_for('adopter_list') }}">Adopters</a></span>
+    </div>
   </header>
   <main class="main_content">
     {% block content %} {% endblock %}

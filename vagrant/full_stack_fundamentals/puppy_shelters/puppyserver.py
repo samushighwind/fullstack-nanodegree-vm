@@ -70,6 +70,7 @@ def new_puppy():
         )
         session.add_all([new_puppy, new_puppy.profile])
         session.commit()
+        flash(new_puppy.name + " has been registered!")
         return redirect(url_for("puppy", puppy_id=new_puppy.id))
 
     return render_template("new_puppy.html")
@@ -92,6 +93,7 @@ def edit_puppy(puppy_id):
         puppy.special_needs = f["special_needs"]
         session.add_all([puppy, puppy.profile])
         session.commit()
+        flash(puppy.name + "'s information has been updated.")
         return redirect(url_for("puppy", puppy_id=puppy_id))
 
     puppy = session.query(Puppy).filter_by(id=puppy_id).one()
@@ -104,6 +106,7 @@ def delete_puppy(puppy_id):
         puppy = session.query(Puppy).filter_by(id=puppy_id).one()
         session.delete(puppy)
         session.commit()
+        flash(new_puppy.name + " was put to sleep.")
         return redirect(url_for("puppy_list"))
 
     puppy = session.query(Puppy).filter_by(id=puppy_id).one()
@@ -244,6 +247,7 @@ def new_adopter():
         new_adopter = Adopter(name=request.form["name"])
         session.add(new_adopter)
         session.commit()
+        flash(new_adopter.name + " has been registered!")
         return redirect(url_for("adopter", adopter_id=new_adopter.id))
 
     return render_template("new_adopter.html")
@@ -256,6 +260,7 @@ def edit_adopter(adopter_id):
         adopter.name = request.form["name"]
         session.add(adopter)
         session.commit()
+        flash(adopter.name + "'s information has been updated.")
         return redirect(url_for("adopter", adopter_id=adopter_id))
 
     adopter = session.query(Adopter).filter_by(id=adopter_id).one()
@@ -268,6 +273,7 @@ def delete_adopter(adopter_id):
         adopter = session.query(Adopter).filter_by(id=adopter_id).one()
         session.delete(adopter)
         session.commit()
+        flash(new_puppy.name + " was deleted from the database.")
         return redirect(url_for("adopter_list"))
 
     adopter = session.query(Adopter).filter_by(id=adopter_id).one()
@@ -303,6 +309,7 @@ def new_shelter():
         )
         session.add(new_shelter)
         session.commit()
+        flash(new_shelter.name + " has been registered!")
         return redirect(url_for("shelter", shelter_id=new_shelter.id))
 
     return render_template("new_shelter.html")
@@ -322,6 +329,7 @@ def edit_shelter(shelter_id):
         shelter.maximum_capacity=f["maximum_capacity"]
         session.add(shelter)
         session.commit()
+        flash(shelter.name + "'s information has been updated.")
         return redirect(url_for("shelter", shelter_id=shelter_id))
 
     shelter = session.query(Shelter).filter_by(id=shelter_id).one()
@@ -334,6 +342,7 @@ def delete_shelter(shelter_id):
         shelter = session.query(Shelter).filter_by(id=shelter_id).one()
         session.delete(shelter)
         session.commit()
+        flash(new_puppy.name + " was deleted from the database.")
         return redirect(url_for("shelter_list"))
 
     shelter = session.query(Shelter).filter_by(id=shelter_id).one()

@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Shelter, Puppy, PuppyProfile, Adopter
-from flask import Flask, request, redirect, render_template, url_for, flash, jsonify, abort
+from flask import Flask, request, redirect, render_template, url_for, flash
 import datetime
 import random
 
@@ -13,8 +13,6 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-
-#In your Python code, you should add methods for performing all of the database functionalities described below:
 
 #All CRUD operations on Puppies, Shelters, and Owners
 #Switching or Balancing Shelter Population and Protecting against overflows
@@ -179,7 +177,11 @@ def switch_shelter(puppy_id):
 
     puppy = session.query(Puppy).filter_by(id=puppy_id).one()
     shelters = session.query(Shelter).all()
-    return render_template("switch_shelter.html", puppy=puppy, shelters=shelters)
+    return render_template(
+        "switch_shelter.html",
+        puppy=puppy,
+        shelters=shelters
+    )
 
 
 def process_puppy_adoption(puppy_id, adopter_ids):
@@ -204,7 +206,6 @@ def process_puppy_adoption(puppy_id, adopter_ids):
         old_shelter.current_occupancy -= 1
         session.add(old_shelter)
     puppy.adopters.extend(adopters)
-    session.add_all(adopters + old_adopters)
     session.add(puppy)
     session.commit()
     adopter_names = [a.name for a in adopters]
@@ -275,24 +276,68 @@ def delete_adopter(adopter_id):
 
 #SHELTER SPECIFIC OPERATIONS
 
-#/shelters/ (R)
-#Shelters list view
+@app.route("/shelters/")
+def shelter_list():
+    shelters = session.query(Shelter).all()
+    return render_template("shelter_list.html", shelters=shelters)
 
 
-#/shelters/new/ (C)
-#Register new shelter
+@app.route("/shelters/<int:shelter_id>/")
+def shelter(shelter_id):
+    shelter = session.query(Shelter).filter_by(id=shelter_id).one()
+    return render_template("shelter.html", shelter=shelter)
 
 
-#/shelters/<int:shelter_id>/ (R)
-#View full profile of shelter with matching shelter_id
+@app.route("/shelters/new/", methods=["GET", "POST"])
+def new_shelter():
+    if request.method == "POST":
+        f = request.form
+        new_shelter = Shelter(
+            name=f["name"],
+            address=f["address"],
+            city=f["city"],
+            state=f["state"],
+            zip_code=f["zip_code"],
+            website=f["website"],
+            maximum_capacity=f["maximum_capacity"]
+        )
+        session.add(new_shelter)
+        session.commit()
+        return redirect(url_for("shelter", shelter_id=new_shelter.id))
+
+    return render_template("new_shelter.html")
 
 
-#/shelters/<int:shelter_id>/edit/ (U)
-#Edit info for shelter with matching shelter_id
+@app.route("/shelters/<int:shelter_id>/edit/", methods=["GET", "POST"])
+def edit_shelter(shelter_id):
+    if request.method == "POST":
+        f = request.form
+        shelter = session.query(Shelter).filter_by(id=shelter_id).one()
+        shelter.name=f["name"]
+        shelter.address=f["address"]
+        shelter.city=f["city"]
+        shelter.state=f["state"]
+        shelter.zip_code=f["zip_code"]
+        shelter.website=f["website"]
+        shelter.maximum_capacity=f["maximum_capacity"]
+        session.add(shelter)
+        session.commit()
+        return redirect(url_for("shelter", shelter_id=shelter_id))
+
+    shelter = session.query(Shelter).filter_by(id=shelter_id).one()
+    return render_template("edit_shelter.html", shelter=shelter)
 
 
-#/shelters/<int:shelter_id/delete/ (D)
-#Delete shelter with matching shelter_id
+@app.route("/shelters/<int:shelter_id>/delete/", methods=["GET", "POST"])
+def delete_shelter(shelter_id):
+    if request.method == "POST":
+        shelter = session.query(Shelter).filter_by(id=shelter_id).one()
+        session.delete(shelter)
+        session.commit()
+        return redirect(url_for("shelter_list"))
+
+    shelter = session.query(Shelter).filter_by(id=shelter_id).one()
+    return render_template("delete_shelter.html", shelter=shelter)
 
 
 if __name__ == "__main__":

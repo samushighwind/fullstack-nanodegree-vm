@@ -7,13 +7,7 @@
       <a href="{{ url_for('adopter', adopter_id=adopter.id) }}">
         <h3 class="adopter_name">{{ adopter.name }}</h3>
       </a>
-      <div class="adopted_puppy_list">
-        {% if adopter.puppies and adopter.puppies | length %}
-        <strong>Puppies:</strong> {{ ", ".join(adopter.puppies | names) }}
-        {% else %}
-        NO PUPPIES
-        {% endif %}
-      </div>
+      <div class="puppy_count">{{ adopter.puppies | length }} puppies</div>
     </div>
   </div>
   {% endfor %}

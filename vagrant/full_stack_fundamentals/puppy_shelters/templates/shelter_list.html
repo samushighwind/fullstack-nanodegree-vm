@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block content %}
+<ul>
+  {% for shelter in shelters %}
+  <div class="shelter_card">
+    <div class="shelter_info">
+      <a href="{{ url_for('shelter', shelter_id=shelter.id) }}">
+        <h3 class="shelter_name">{{ shelter.name }}</h3>
+      </a>
+      <div class="puppy_count">{{ shelter.current_occupancy }} / {{ shelter.maximum_capacity }} PUPPIES</div>
+      {% if shelter.address and shelter.address | length %}
+      <div class="shelter_fact shelter_address"><strong>Address:</strong> {{ shelter.address }}</div>
+      {% endif %}
+      {% if shelter.city and shelter.city | length %}
+      <div class="shelter_fact shelter_city"><strong>City:</strong> {{ shelter.city }}</div>
+      {% endif %}
+      {% if shelter.state and shelter.state | length %}
+      <div class="shelter_fact shelter_state"><strong>State:</strong> {{ shelter.state }}</div>
+      {% endif %}
+      {% if shelter.zip_code and shelter.zip_code | length %}
+      <div class="shelter_fact shelter_zip_code"><strong>ZIP Code:</strong> {{ shelter.zip_code }}</div>
+      {% endif %}
+      {% if shelter.website and shelter.website | length %}
+      <div class="shelter_fact shelter_website"><strong>Website:</strong> <a href="{{ shelter.website }}" target="_blank">click here</a></div>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block content %}
+<form class="shelter_action shelter_edit" action="{{ url_for('edit_shelter', shelter_id=shelter.id) }}" method="post">
+  <h3 class="shelter_edit_head">Edit Shelter information</h3>
+  <div class="shelter_name_field">
+    <label for="name">Name</label>
+    <input type="text" name="name" value="{{ shelter.name or '' }}">
+  </div>
+  <div class="shelter_address_field">
+    <label for="address">Address</label>
+    <input type="text" name="address" value="{{ shelter.address or '' }}">
+  </div>
+  <div class="shelter_city_field">
+    <label for="city">City</label>
+    <input type="text" name="city" value="{{ shelter.city or '' }}">
+  </div>
+  <div class="shelter_state_field">
+    <label for="state">State</label>
+    <input type="text" name="state" value="{{ shelter.state or '' }}">
+  </div>
+  <div class="shelter_zip_code_field">
+    <label for="zip_code">ZIP Code</label>
+    <input type="text" name="zip_code" value="{{ shelter.zip_code or '' }}">
+  </div>
+  <div class="shelter_website_field">
+    <label for="website">Website</label>
+    <input type="text" name="website" value="{{ shelter.website or '' }}">
+  </div>
+  <div class="shelter_maximum_capacity_field">
+    <label for="maximum_capacity">Maximum Capacity</label>
+    <input type="number" name="maximum_capacity" min="1" max="500" value="{{ shelter.maximum_capacity }}" required>
+  </div>
+  <div class="shelter_edit_submit"><input type="submit" value="Save"></div>
+</form>
+<a href="{{ url_for('shelter', shelter_id=shelter.id) }}">Go back</a>
+{% endblock %}

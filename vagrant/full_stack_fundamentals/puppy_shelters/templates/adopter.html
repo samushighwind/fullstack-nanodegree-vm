@@ -7,17 +7,17 @@
       <div><a href="{{ url_for('edit_adopter', adopter_id=adopter.id) }}">Edit Adopter Info</a></div>
       <div><a href="{{ url_for('delete_adopter', adopter_id=adopter.id) }}">Delete Adopter Profile</a></div>
     </div>
-    <div class="adopted_adopter_photo_list">
+    <div class="adopted_puppy_photo_list">
       {% if adopter.puppies and adopter.puppies | length %}
       <h4 class="adopted_puppies_head">Puppies</h4>
-        {% for adopter in adopter.puppies %}
-        <div class="adopted-adopter">
-          {% if adopter.profile.picture and adopter.profile.picture | length %}
-          <img class="adopter_small_photo"
-               src="{{ adopter.profile.picture }}"
-               alt="{{ adopter }}'s adopter, {{ adopter.name }}"/>
+        {% for puppy in adopter.puppies %}
+        <div class="adopted-puppy">
+          {% if puppy.profile.picture and puppy.profile.picture | length %}
+          <img class="puppy_small_photo"
+               src="{{ puppy.profile.picture }}"
+               alt="{{ adopter.name }}'s puppy, {{ puppy.name }}"/>
           {% endif %}
-          <div class="adopted_adopter_name">{{ adopter.name }}</div>
+          <div class="adopted_puppy_name">{{ puppy.name }}</div>
         </div>
         {% endfor %}
       {% else %}

@@ -2,7 +2,7 @@
 {% block content %}
 <form class="puppy_action puppy_delete" action="{{ url_for('delete_puppy', puppy_id=puppy.id) }}" method="post">
   <h3 class="puppy_delete_head">Are you sure you want to put {{ puppy.name }} to sleep?</h3>
-  {% if puppy.profile.picture and puppy.profile.picture | length %}
+  {% if puppy.profile.picture and puppy.profile.picture|length %}
   <img class="puppy_big_photo"
        src="{{ puppy.profile.picture }}"
        alt="A puppy named {{ puppy.name }}"

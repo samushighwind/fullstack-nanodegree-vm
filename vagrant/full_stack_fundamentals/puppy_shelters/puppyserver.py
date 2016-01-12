@@ -1,9 +1,13 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, func
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Shelter, Puppy, PuppyProfile, Adopter
 from flask import Flask, request, redirect, render_template, url_for, flash
 import datetime
 import random
+import math
+
+
+ITEMS_PER_PAGE = 8
 
 
 app = Flask(__name__)
@@ -23,15 +27,54 @@ session = DBSession()
 #BONUS: Pagination
 
 
-# filter to map lists of Puppy, Shelter, or
-# Adopter objects to lists of names
+def get_number_of_pages(data_class):
+    """
+    given SQLAlchemy class, returns number of pages to display all instances
+
+    Args:
+      data_class: SQLAlchemy class - of which instances will be counted
+
+    Returns:
+      int - number of pages required to display all instances
+    """
+
+    number_of_pages = int(math.ceil(
+        session.query(data_class).count() / (ITEMS_PER_PAGE*1.0)
+    ))
+    return number_of_pages
+
+
+def get_current_page(pagelimit):
+    """
+    given a page limit, and using the 'p' query argument, gets current page.
+
+    Args:
+      pagelimit: int - maximum page value that can be returned
+
+    Returns:
+      int - current page number
+    """
+    p = request.args.get("p")
+    current_page = min(p and int(p) or 1, pagelimit)
+    return current_page
+
+
 @app.template_filter('names')
 def names_filter(obj_list):
+    """
+    maps lists of Puppy, Shelter, or Adopter objects
+    to lists of names; used as Jinja filter
+    """
+
     return [o.name for o in obj_list]
 
 
 @app.template_filter('one_dec_place')
 def one_dec_place_filter(f):
+    """
+    rounds float or decimal number to one decimal place
+    """
+
     return round(float(f) / 0.1) * 0.1
 
 
@@ -40,8 +83,17 @@ def one_dec_place_filter(f):
 @app.route("/")
 @app.route("/puppies/")
 def puppy_list():
-    puppies = session.query(Puppy).all()
-    return render_template("puppy_list.html", puppies=puppies)
+    pagelimit = get_number_of_pages(Puppy)
+    page = get_current_page(pagelimit)
+    puppies = session.query(Puppy) \
+                     .offset((page-1) * ITEMS_PER_PAGE) \
+                     .limit(ITEMS_PER_PAGE)
+    return render_template(
+        "puppy_list.html",
+        puppies=puppies,
+        page=page,
+        pagelimit=pagelimit
+    )
 
 
 @app.route("/puppies/<int:puppy_id>/")
@@ -106,7 +158,7 @@ def delete_puppy(puppy_id):
         puppy = session.query(Puppy).filter_by(id=puppy_id).one()
         session.delete(puppy)
         session.commit()
-        flash(new_puppy.name + " was put to sleep.")
+        flash(puppy.name + " was put to sleep.")
         return redirect(url_for("puppy_list"))
 
     puppy = session.query(Puppy).filter_by(id=puppy_id).one()
@@ -231,8 +283,17 @@ def adopt_puppy(puppy_id):
 
 @app.route("/adopters/")
 def adopter_list():
-    adopters = session.query(Adopter).all()
-    return render_template("adopter_list.html", adopters=adopters)
+    pagelimit = get_number_of_pages(Adopter)
+    page = get_current_page(pagelimit)
+    adopters = session.query(Adopter) \
+                      .offset((page-1) * ITEMS_PER_PAGE) \
+                      .limit(ITEMS_PER_PAGE)
+    return render_template(
+        "adopter_list.html",
+        adopters=adopters,
+        page=page,
+        pagelimit=pagelimit
+    )
 
 
 @app.route("/adopters/<int:adopter_id>/")
@@ -273,7 +334,7 @@ def delete_adopter(adopter_id):
         adopter = session.query(Adopter).filter_by(id=adopter_id).one()
         session.delete(adopter)
         session.commit()
-        flash(new_puppy.name + " was deleted from the database.")
+        flash(adopter.name + " was deleted from the database.")
         return redirect(url_for("adopter_list"))
 
     adopter = session.query(Adopter).filter_by(id=adopter_id).one()
@@ -284,8 +345,17 @@ def delete_adopter(adopter_id):
 
 @app.route("/shelters/")
 def shelter_list():
-    shelters = session.query(Shelter).all()
-    return render_template("shelter_list.html", shelters=shelters)
+    pagelimit = get_number_of_pages(Shelter)
+    page = get_current_page(pagelimit)
+    shelters = session.query(Shelter) \
+                      .offset((page-1) * ITEMS_PER_PAGE) \
+                      .limit(ITEMS_PER_PAGE)
+    return render_template(
+        "shelter_list.html",
+        shelters=shelters,
+        page=page,
+        pagelimit=pagelimit
+    )
 
 
 @app.route("/shelters/<int:shelter_id>/")
@@ -342,7 +412,7 @@ def delete_shelter(shelter_id):
         shelter = session.query(Shelter).filter_by(id=shelter_id).one()
         session.delete(shelter)
         session.commit()
-        flash(new_puppy.name + " was deleted from the database.")
+        flash(shelter.name + " was deleted from the database.")
         return redirect(url_for("shelter_list"))
 
     shelter = session.query(Shelter).filter_by(id=shelter_id).one()

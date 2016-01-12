@@ -8,11 +8,11 @@
       <div><a href="{{ url_for('delete_adopter', adopter_id=adopter.id) }}">Delete Adopter Profile</a></div>
     </div>
     <div class="adopted_puppy_photo_list">
-      {% if adopter.puppies and adopter.puppies | length %}
+      {% if adopter.puppies and adopter.puppies|length %}
       <h4 class="adopted_puppies_head">Puppies</h4>
         {% for puppy in adopter.puppies %}
         <div class="adopted-puppy">
-          {% if puppy.profile.picture and puppy.profile.picture | length %}
+          {% if puppy.profile.picture and puppy.profile.picture|length %}
           <img class="puppy_small_photo"
                src="{{ puppy.profile.picture }}"
                alt="{{ adopter.name }}'s puppy, {{ puppy.name }}"/>

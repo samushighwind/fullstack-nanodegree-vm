@@ -4,19 +4,19 @@
   <h3 class="shelter_name">{{ shelter.name }}</h3>
   <div class="shelter_bottom_panel">
     <div class="shelter_info">
-      {% if shelter.address and shelter.address | length %}
+      {% if shelter.address and shelter.address|length %}
       <div class="shelter_fact shelter_address"><strong>Address:</strong> {{ shelter.address }}</div>
       {% endif %}
-      {% if shelter.city and shelter.city | length %}
+      {% if shelter.city and shelter.city|length %}
       <div class="shelter_fact shelter_city"><strong>City:</strong> {{ shelter.city }}</div>
       {% endif %}
-      {% if shelter.state and shelter.state | length %}
+      {% if shelter.state and shelter.state|length %}
       <div class="shelter_fact shelter_state"><strong>State:</strong> {{ shelter.state }}</div>
       {% endif %}
-      {% if shelter.zip_code and shelter.zip_code | length %}
+      {% if shelter.zip_code and shelter.zip_code|length %}
       <div class="shelter_fact shelter_zip_code"><strong>ZIP Code:</strong> {{ shelter.zip_code }}</div>
       {% endif %}
-      {% if shelter.website and shelter.website | length %}
+      {% if shelter.website and shelter.website|length %}
       <div class="shelter_fact shelter_website"><strong>Website:</strong> <a href="{{ shelter.website }}" target="_blank">click here</a></div>
       {% endif %}
     </div>
@@ -25,11 +25,11 @@
       <div><a href="{{ url_for('delete_shelter', shelter_id=shelter.id) }}">Delete Shelter Profile</a></div>
     </div>
     <div class="sheltered_puppy_photo_list">
-      {% if shelter.puppies and shelter.puppies | length %}
+      {% if shelter.puppies and shelter.puppies|length %}
       <h4 class="sheltered_puppies_head">Puppies</h4>
         {% for puppy in shelter.puppies %}
         <div class="sheltered-puppy">
-          {% if puppy.profile.picture and puppy.profile.picture | length %}
+          {% if puppy.profile.picture and puppy.profile.picture|length %}
           <img class="puppy_small_photo"
                src="{{ puppy.profile.picture }}"
                alt="A puppy named {{ puppy.name }}"/>

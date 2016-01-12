@@ -2,7 +2,7 @@
 {% block content %}
 <form class="puppy_action puppy_edit" action="{{ url_for('edit_puppy', puppy_id=puppy.id) }}" method="post">
   <h3 class="puppy_edit_head">Edit puppy information</h3>
-  {% if puppy.profile.picture and puppy.profile.picture | length %}
+  {% if puppy.profile.picture and puppy.profile.picture|length %}
   <img class="puppy_big_photo"
        src="{{ puppy.profile.picture }}"
        alt="A puppy named {{ puppy.name }}"/>
@@ -24,7 +24,7 @@
   </div>
   <div class="puppy_weight_field">
     <label for="weight">Weight (lbs.)</label>
-    <input type="number" name="weight" min="1.0" max="40.0" step="0.1" value="{{ puppy.weight_lbs | one_dec_place }}" required>
+    <input type="number" name="weight" min="1.0" max="40.0" step="0.1" value="{{ puppy.weight_lbs|one_dec_place }}" required>
   </div>
   <div class="puppy_picture_field">
     <label for="picture">Photo URL</label>

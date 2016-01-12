@@ -4,12 +4,14 @@
   {% for adopter in adopters %}
   <div class="adopter_card">
     <div class="adopter_info">
-      <h3 class="adopter_name">{{ adopter.name }}</h3>
+      <a href="{{ url_for('adopter', adopter_id=adopter.id) }}">
+        <h3 class="adopter_name">{{ adopter.name }}</h3>
+      </a>
       <div class="adopted_puppy_list">
-        {% if adopter.puppies and len(adopter.puppies) }
-          <strong>Puppies:</strong> {{ ", ".join(map(lambda p: p.name, adopter.puppies)) }}
+        {% if adopter.puppies and adopter.puppies | length %}
+        <strong>Puppies:</strong> {{ ", ".join(adopter.puppies | names) }}
         {% else %}
-          NO PUPPIES
+        NO PUPPIES
         {% endif %}
       </div>
     </div>

@@ -225,24 +225,52 @@ def adopt_puppy(puppy_id):
 
 #ADOPTER SPECIFIC OPERATIONS
 
-#/adopters/ (R)
-#Adopters list view
+@app.route("/adopters/")
+def adopter_list():
+    adopters = session.query(Adopter).all()
+    return render_template("adopter_list.html", adopters=adopters)
 
 
-#/adopters/new/ (C)
-#Register new adopter
+@app.route("/adopters/<int:adopter_id>/")
+def adopter(adopter_id):
+    adopter = session.query(Adopter).filter_by(id=adopter_id).one()
+    return render_template("adopter.html", adopter=adopter)
 
 
-#/adopters/<int:adopter_id>/ (R)
-#View full profile of adopter with matching adopter_id
+@app.route("/adopters/new/", methods=["GET", "POST"])
+def new_adopter():
+    if request.method == "POST":
+        new_adopter = Adopter(name=request.form["name"])
+        session.add(new_adopter)
+        session.commit()
+        return redirect(url_for("adopter", adopter_id=new_adopter.id))
+
+    return render_template("new_adopter.html")
 
 
-#/adopters/<int:adopter_id>/edit/ (U)
-#Edit info for adopter with matching adopter_id
+@app.route("/adopters/<int:adopter_id>/edit/", methods=["GET", "POST"])
+def edit_adopter(adopter_id):
+    if request.method == "POST":
+        adopter = session.query(Adopter).filter_by(id=adopter_id).one()
+        adopter.name = request.form["name"]
+        session.add(adopter)
+        session.commit()
+        return redirect(url_for("adopter", adopter_id=adopter_id))
+
+    adopter = session.query(Adopter).filter_by(id=adopter_id).one()
+    return render_template("edit_adopter.html", adopter=adopter)
 
 
-#/adopters/<int:adopter_id/delete/ (D)
-#Delete adopter with matching adopter_id
+@app.route("/adopters/<int:adopter_id>/delete/", methods=["GET", "POST"])
+def delete_adopter(adopter_id):
+    if request.method == "POST":
+        adopter = session.query(Adopter).filter_by(id=adopter_id).one()
+        session.delete(adopter)
+        session.commit()
+        return redirect(url_for("adopter_list"))
+
+    adopter = session.query(Adopter).filter_by(id=adopter_id).one()
+    return render_template("delete_adopter.html", adopter=adopter)
 
 
 #SHELTER SPECIFIC OPERATIONS

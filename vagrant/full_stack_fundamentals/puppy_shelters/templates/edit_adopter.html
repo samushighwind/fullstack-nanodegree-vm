@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+<form class="adopter_action adopter_edit" action="{{ url_for('edit_adopter', adopter_id=adopter.id) }}" method="post">
+  <h3 class="adopter_edit_head">Edit adopter information</h3>
+  <div class="adopter_name_field">
+    <label for="name">Name</label>
+    <input type="text" name="name" placeholder="Sam" value="{{ adopter.name }}" required>
+  </div>
+  <div class="adopter_edit_submit"><input type="submit" value="Save"></div>
+</form>
+<a href="{{ url_for('adopter', adopter_id=adopter.id) }}">Go back</a>
+{% endblock %}

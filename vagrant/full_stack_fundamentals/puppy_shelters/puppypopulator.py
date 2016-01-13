@@ -14,11 +14,11 @@ session = DBSession()
 #Add Shelters
 shelters = []
 
-shelter1 = Shelter(name = "Oakland Animal Services", address = "1101 29th Ave", city = "Oakland", state = "California", zip_code = "94601", website = "oaklandanimalservices.org", maximum_capacity=22)
+shelter1 = Shelter(name = "Oakland Animal Services", address = "1101 29th Ave", city = "Oakland", state = "California", zip_code = "94601", website = "http://oaklandanimalservices.org", maximum_capacity=22)
 shelters.append(shelter1)
 session.add(shelter1)
 
-shelter2 = Shelter(name = "San Francisco SPCA Mission Adoption Center", address="250 Florida St", city="San Francisco", state="California", zip_code = "94103", website = "sfspca.org", maximum_capacity=22)
+shelter2 = Shelter(name = "San Francisco SPCA Mission Adoption Center", address="250 Florida St", city="San Francisco", state="California", zip_code = "94103", website = "http://sfspca.org", maximum_capacity=22)
 shelters.append(shelter2)
 session.add(shelter2)
 
@@ -26,11 +26,11 @@ shelter3 = Shelter(name = "Wonder Dog Rescue", address= "2926 16th Street", city
 shelters.append(shelter3)
 session.add(shelter3)
 
-shelter4 = Shelter(name = "Humane Society of Alameda", address = "PO Box 1571" ,city = "Alameda" ,state = "California", zip_code = "94501", website = "hsalameda.org", maximum_capacity=22)
+shelter4 = Shelter(name = "Humane Society of Alameda", address = "PO Box 1571" ,city = "Alameda" ,state = "California", zip_code = "94501", website = "http://hsalameda.org", maximum_capacity=22)
 shelters.append(shelter4)
 session.add(shelter4)
 
-shelter5 = Shelter(name = "Palo Alto Humane Society" ,address = "1149 Chestnut St." ,city = "Menlo Park", state = "California" ,zip_code = "94025", website = "paloaltohumane.org", maximum_capacity=22)
+shelter5 = Shelter(name = "Palo Alto Humane Society" ,address = "1149 Chestnut St." ,city = "Menlo Park", state = "California" ,zip_code = "94025", website = "http://paloaltohumane.org", maximum_capacity=22)
 shelters.append(shelter5)
 session.add(shelter5)
 

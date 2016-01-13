@@ -1,6 +1,3 @@
-from .. import app
-
-@app.template_filter("names")
 def names_filter(obj_list):
     """
     maps lists of Puppy, Shelter, or Adopter objects
@@ -10,7 +7,6 @@ def names_filter(obj_list):
     return [o.name for o in obj_list]
 
 
-@app.template_filter("one_dec_place")
 def one_dec_place_filter(f):
     """
     rounds float or decimal number to one decimal place

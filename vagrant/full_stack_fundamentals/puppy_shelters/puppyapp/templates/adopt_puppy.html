@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-<form class="adopt_puppy" action="{{ url_for('adopt_puppy', puppy_id=puppy.id) }}" method="post">
+<form class="adopt_puppy" action="{{ url_for('puppies.adopt', puppy_id=puppy.id) }}" method="post">
   <h3 class="adopt_puppy_head">Who will be adopting {{ puppy.name }}?</h3>
   <div class="adopter_selector">
     {% for adopter in adopters %}
@@ -9,5 +9,5 @@
   </div>
   <div class="adopt_puppy_submit"><input type="submit" value="Confirm"></div>
 </form>
-<a href="{{ url_for('puppy', puppy_id=puppy.id) }}">Go back</a>
+<a href="{{ url_for('puppies.profile', puppy_id=puppy.id) }}">Go back</a>
 {% endblock %}

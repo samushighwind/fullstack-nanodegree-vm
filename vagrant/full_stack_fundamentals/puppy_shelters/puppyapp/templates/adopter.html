@@ -4,8 +4,8 @@
   <h3 class="adopter_name">{{ adopter.name }}</h3>
   <div class="adopter_bottom_panel">
     <div class="adopter_options">
-      <div><a href="{{ url_for('edit_adopter', adopter_id=adopter.id) }}">Edit Adopter Info</a></div>
-      <div><a href="{{ url_for('delete_adopter', adopter_id=adopter.id) }}">Delete Adopter Profile</a></div>
+      <div><a href="{{ url_for('adopters.edit', adopter_id=adopter.id) }}">Edit Adopter Info</a></div>
+      <div><a href="{{ url_for('adopters.delete', adopter_id=adopter.id) }}">Delete Adopter Profile</a></div>
     </div>
     <div class="adopted_puppy_photo_list">
       {% if adopter.puppies and adopter.puppies|length %}
@@ -25,6 +25,6 @@
       {% endif %}
     </div>
   </div>
-  <a href="{{ url_for('adopter_list') }}">Go back</a>
+  <a href="{{ url_for('adopters.list_all') }}">Go back</a>
 </div>
 {% endblock %}

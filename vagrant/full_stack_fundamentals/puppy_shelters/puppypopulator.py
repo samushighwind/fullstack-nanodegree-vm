@@ -1,19 +1,13 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
- 
-from database_setup import Base, Shelter, Puppy, PuppyProfile, Adopter
-#from flask.ext.sqlalchemy import SQLAlchemy
-from random import randint
 import datetime
 import random
+from puppyapp.models import Base, Shelter, Puppy, PuppyProfile, Adopter
+#from flask.ext.sqlalchemy import SQLAlchemy
 
-
-engine = create_engine('sqlite:///puppies.db')
-
+engine = create_engine("sqlite:///puppies.db")
 Base.metadata.bind = engine
- 
 DBSession = sessionmaker(bind=engine)
-
 session = DBSession()
 
 
@@ -60,7 +54,7 @@ adopter_names = ['Joe', 'Darth', 'Jane', 'Dax', 'Jax', '#YOLO', 'Grimes', 'Yoda'
 #This method will make a random age for each puppy between 0-18 months(approx.) old from the day the algorithm was run.
 def CreateRandomAge():
   today = datetime.date.today()
-  days_old = randint(0,540)
+  days_old = random.randint(0,540)
   birthday = today - datetime.timedelta(days = days_old)
   return birthday
 
@@ -75,10 +69,10 @@ for i,x in enumerate(adopter_names):
   session.add(adopter)
 
 for i,x in enumerate(male_names):
-  random_shelter_id = randint(1, 5)
+  random_shelter_id = random.randint(1, 5)
   random_shelter = shelters[random_shelter_id - 1]
   while(random_shelter.current_occupancy >= random_shelter.maximum_capacity):
-    random_shelter_id = randint(1, 5)
+    random_shelter_id = random.randint(1, 5)
     random_shelter = shelters[random_shelter_id - 1]
 
   new_puppy = Puppy(name = x, gender = "male", date_of_birth = CreateRandomAge(),shelter_id=random_shelter_id, weight_lbs= CreateRandomWeight())
@@ -93,10 +87,10 @@ for i,x in enumerate(male_names):
   session.add(new_profile)
 
 for i,x in enumerate(female_names):
-  random_shelter_id = randint(1, 5)
+  random_shelter_id = random.randint(1, 5)
   random_shelter = shelters[random_shelter_id - 1]
   while(random_shelter.current_occupancy >= random_shelter.maximum_capacity):
-    random_shelter_id = randint(1, 5)
+    random_shelter_id = random.randint(1, 5)
     random_shelter = shelters[random_shelter_id - 1]
 
   new_puppy = Puppy(name = x, gender = "female", date_of_birth = CreateRandomAge(),shelter_id=random_shelter_id, weight_lbs= CreateRandomWeight())

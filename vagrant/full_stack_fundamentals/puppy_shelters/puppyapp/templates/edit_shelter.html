@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-<form class="shelter_action shelter_edit" action="{{ url_for('edit_shelter', shelter_id=shelter.id) }}" method="post">
+<form class="shelter_action shelter_edit" action="{{ url_for('shelters.edit', shelter_id=shelter.id) }}" method="post">
   <h3 class="shelter_edit_head">Edit Shelter information</h3>
   <div class="shelter_name_field">
     <label for="name">Name</label>
@@ -32,5 +32,5 @@
   </div>
   <div class="shelter_edit_submit"><input type="submit" value="Save"></div>
 </form>
-<a href="{{ url_for('shelter', shelter_id=shelter.id) }}">Go back</a>
+<a href="{{ url_for('shelters.profile', shelter_id=shelter.id) }}">Go back</a>
 {% endblock %}

@@ -1,20 +1,6 @@
-from sqlalchemy import create_engine, desc, func
-from sqlalchemy.orm import sessionmaker
-from database_setup import Base, Shelter, Puppy, PuppyProfile, Adopter
-import random
-
-engine = create_engine("sqlite:///puppies.db")
-Base.metadata.bind = engine
-DBSession = sessionmaker(bind=engine)
-session = DBSession()
-
-
-def print_shelter_occupancies():
-    shelters = session.query(Shelter).all()
-    for s in shelters:
-        print(s.name)
-        print("=" * s.current_occupancy + " (" + str(s.current_occupancy) + ")")
-        print("")
+from random import choice
+from .models import Puppy, Adopter, Shelter
+from .db import session
 
 
 def transfer_puppy(puppy, new_shelter, old_shelter=None):
@@ -27,7 +13,6 @@ def transfer_puppy(puppy, new_shelter, old_shelter=None):
     if len(puppy.adopters):
         del puppy.adopters[:]
     session.commit()
-    print_shelter_occupancies()
 
 
 def check_in_puppy(puppy, shelter=None):
@@ -60,8 +45,8 @@ def check_in_puppy(puppy, shelter=None):
     # a shelter is randomly chosen from among all shelters sharing
     # the lowest occupancy count, so as to balance capacity but also avoid
     # distribution bias
-    minimum_occupancy = min(map(lambda s: s.current_occupancy, open_shelters))
-    new_shelter = random.choice(filter(
+    minimum_occupancy = min([s.current_occupancy for s in open_shelters])
+    new_shelter = choice(filter(
         lambda s: s.current_occupancy == minimum_occupancy,
         open_shelters
     ))
@@ -74,7 +59,7 @@ def check_in_puppy(puppy, shelter=None):
     return puppy.name + " was checked into " + new_shelter.name + "."
 
 
-def adopt_puppy(puppy_id, adopter_ids):
+def process_puppy_adoption(puppy_id, adopter_ids):
     """
     Has puppy with given id adopted by adopters with given ids.
     Also removes exisiting relationships.
@@ -86,7 +71,7 @@ def adopt_puppy(puppy_id, adopter_ids):
     Returns:
       A status message indicating who adopted the puppy.
     """
-    puppy = session.query(Puppy).filter(Puppy.id == puppy_id).one()
+    puppy = session.query(Puppy).filter_by(id=puppy_id).one()
     adopters = session.query(Adopter).filter(Adopter.id.in_(adopter_ids)).all()
     old_adopters = puppy.adopters
     old_shelter = puppy.shelter
@@ -96,20 +81,7 @@ def adopt_puppy(puppy_id, adopter_ids):
         old_shelter.current_occupancy -= 1
         session.add(old_shelter)
     puppy.adopters.extend(adopters)
-    session.add_all(adopters + old_adopters)
     session.add(puppy)
     session.commit()
-    adopter_names = map(lambda a: a.name, adopters)
+    adopter_names = [a.name for a in adopters]
     return puppy.name + " was adopted by " + ", ".join(adopter_names)
-
-
-random_puppy = session.query(Puppy).order_by(func.random()).first()
-random_shelter = session.query(Shelter).order_by(func.random()).first()
-print check_in_puppy(random_puppy, random_shelter)
-
-random_puppy_id = session.query(Puppy).order_by(func.random()).first().id
-all_adopters = session.query(Adopter).all()
-num_adopters = len(all_adopters)
-random_adopters = random.sample(all_adopters, random.randint(1, num_adopters))
-random_adopter_ids = map(lambda a: a.id, random_adopters)
-print adopt_puppy(random_puppy_id, random_adopter_ids)

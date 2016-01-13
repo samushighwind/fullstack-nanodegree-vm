@@ -4,7 +4,7 @@
   {% for shelter in shelters %}
   <div class="shelter_card">
     <div class="shelter_info">
-      <a href="{{ url_for('shelter', shelter_id=shelter.id) }}">
+      <a href="{{ url_for('shelters.profile', shelter_id=shelter.id) }}">
         <h3 class="shelter_name">{{ shelter.name }}</h3>
       </a>
       <div class="puppy_count">{{ shelter.current_occupancy }} / {{ shelter.maximum_capacity }} PUPPIES</div>
@@ -34,7 +34,7 @@
 <div class="page_nav">
   {% for i in range(1, pagelimit+1) %}
   <span class="page_number {% if i == page %}current{% endif %}">
-    <a href="{{ url_for('shelter_list', p=i) }}">{{ i }}</a>
+    <a href="{{ url_for('shelters.list_all', p=i) }}">{{ i }}</a>
   </span>
   {% endfor %}
 </div>

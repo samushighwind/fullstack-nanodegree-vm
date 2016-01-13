@@ -1,14 +1,17 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="puppy">
-  <h3 class="puppy_name">{{ puppy.name }}</h3>
-  {% if puppy.profile.picture and puppy.profile.picture|length %}
-  <img class="puppy_big_photo"
-       src="{{ puppy.profile.picture }}"
-       alt="A puppy named {{ puppy.name }}"/>
-  {% endif %}
-  <div class="puppy_bottom_panel">
+<div class="puppy_list">
+  {% for puppy in puppies %}
+  <div class="puppy_card">
+    {% if puppy.profile.picture and puppy.profile.picture|length %}
+    <img class="puppy_card_photo"
+         src="{{ puppy.profile.picture }}"
+         alt="A puppy named {{ puppy.name }}"/>
+    {% endif %}
     <div class="puppy_info">
+      <a href="{{ url_for('puppies.profile', puppy_id=puppy.id) }}">
+        <h3 class="puppy_name">{{ puppy.name }}</h3>
+      </a>
       <div class="puppy_home">
         {% if puppy.adopters and puppy.adopters|length %}
           {{ "ADOPTED BY %s" % ", ".join(puppy.adopters|names).upper() }}
@@ -28,13 +31,19 @@
       <div class="puppy_fact puppy_special_needs"><strong>Special needs:</strong> {{ puppy.profile.special_needs }}</div>
       {% endif %}
     </div>
-    <div class="puppy_options">
-      <div><a href="{{ url_for('edit_puppy', puppy_id=puppy.id) }}">Edit Puppy Info</a></div>
-      <div><a href="{{ url_for('delete_puppy', puppy_id=puppy.id) }}">Delete Puppy Profile</a></div>
-      <div><a href="{{ url_for('switch_shelter', puppy_id=puppy.id) }}">Check puppy into new shelter</a></div>
-      <div><a href="{{ url_for('adopt_puppy', puppy_id=puppy.id) }}">Adopt puppy</a></div>
-    </div>
   </div>
-  <a href="{{ url_for('puppy_list') }}">Go back</a>
+  {% endfor %}
 </div>
+{% endblock %}
+
+{% block pagenav %}
+{% if page and pagelimit and pagelimit > 1 %}
+<div class="page_nav">
+  {% for i in range(1, pagelimit+1) %}
+  <span class="page_number {% if i == page %}current{% endif %}">
+    <a href="{{ url_for('puppies.list_all', p=i) }}">{{ i }}</a>
+  </span>
+  {% endfor %}
+</div>
+{% endif %}
 {% endblock %}

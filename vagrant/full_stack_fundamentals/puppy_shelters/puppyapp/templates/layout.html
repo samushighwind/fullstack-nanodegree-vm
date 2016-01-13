@@ -19,13 +19,13 @@
     </div>
     {% endif %}
     {% endwith %}
-    <a href="{{ url_for('puppy_list') }}">
+    <a href="{{ url_for('puppies.list_all') }}">
       <h1 class="header_text">Puppy Tycoon 2016</h1>
     </a>
     <div class="menu">
-      <span><a href="{{ url_for('puppy_list') }}">Puppies</a></span>
-      <span><a href="{{ url_for('shelter_list') }}">Shelters</a></span>
-      <span><a href="{{ url_for('adopter_list') }}">Adopters</a></span>
+      <span><a href="{{ url_for('puppies.list_all') }}">Puppies</a></span>
+      <span><a href="{{ url_for('shelters.list_all') }}">Shelters</a></span>
+      <span><a href="{{ url_for('adopters.list_all') }}">Adopters</a></span>
     </div>
   </header>
   <main class="main_content">

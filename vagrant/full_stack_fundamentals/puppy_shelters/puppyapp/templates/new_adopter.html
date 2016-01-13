@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-<form class="adopter_action adopter_new" action="{{ url_for('new_adopter') }}" method="post">
+<form class="adopter_action adopter_new" action="{{ url_for('adopters.new') }}" method="post">
   <h3 class="adopter_new_head">Register a new adopter</h3>
   <div class="adopter_name_field">
     <label for="name">Name</label>
@@ -8,5 +8,5 @@
   </div>
   <div class="adopter_new_submit"><input type="submit" value="Register adopter"></div>
 </form>
-<a href="{{ url_for('adopter_list') }}">Go back</a>
+<a href="{{ url_for('adopters.list_all') }}">Go back</a>
 {% endblock %}

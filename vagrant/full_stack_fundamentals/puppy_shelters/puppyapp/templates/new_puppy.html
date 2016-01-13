@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-<form class="puppy_action puppy_new" action="{{ url_for('new_puppy') }}" method="post">
+<form class="puppy_action puppy_new" action="{{ url_for('puppies.new') }}" method="post">
   <h3 class="puppy_new_head">Register a new puppy</h3>
   <div class="puppy_name_field">
     <label for="name">Name</label>
@@ -35,5 +35,5 @@
   </div>
   <div class="puppy_new_submit"><input type="submit" value="Register puppy"></div>
 </form>
-<a href="{{ url_for('puppy_list') }}">Go back</a>
+<a href="{{ url_for('puppies.list_all') }}">Go back</a>
 {% endblock %}

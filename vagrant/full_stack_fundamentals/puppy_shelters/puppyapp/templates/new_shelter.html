@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-<form class="shelter_action shelter_new" action="{{ url_for('new_shelter') }}" method="post">
+<form class="shelter_action shelter_new" action="{{ url_for('shelters.new') }}" method="post">
   <h3 class="shelter_new_head">Register a new shelter</h3>
   <div class="shelter_name_field">
     <label for="name">Name</label>
@@ -32,5 +32,5 @@
   </div>
   <div class="shelter_new_submit"><input type="submit" value="Register shelter"></div>
 </form>
-<a href="{{ url_for('shelter_list') }}">Go back</a>
+<a href="{{ url_for('shelters.list_all') }}">Go back</a>
 {% endblock %}

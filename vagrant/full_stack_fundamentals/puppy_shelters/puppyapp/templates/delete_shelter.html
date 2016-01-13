@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
-<form class="shelter_action shelter_delete" action="{{ url_for('delete_shelter', shelter_id=shelter.id) }}" method="post">
+<form class="shelter_action shelter_delete" action="{{ url_for('shelters.delete', shelter_id=shelter.id) }}" method="post">
   <h3 class="shelter_delete_head">Are you sure you want to delete {{ shelter.name }} from the database?</h3>
   <div class="shelter_delete_submit"><input type="submit" value="Delete"></div>
 </form>
-<a href="{{ url_for('shelter', shelter_id=shelter.id) }}">Go back</a>
+<a href="{{ url_for('shelters.profile', shelter_id=shelter.id) }}">Go back</a>
 {% endblock %}

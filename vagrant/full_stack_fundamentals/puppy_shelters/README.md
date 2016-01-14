@@ -4,6 +4,7 @@ INSTRUCTIONS FOR RUNNING SERVER
 ```
 python database_setup.py
 ```
+The database, `puppies.db`, is initialized in the `puppyapp` package directory.
 2. To run the server, run:
 ```
 python puppyserver.py

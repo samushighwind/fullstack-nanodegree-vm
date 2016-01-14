@@ -3,10 +3,11 @@ INSTRUCTIONS FOR RUNNING SERVER
 0) Install dependencies, probably using `pip`. (You may need administrative privileges.)
 ```
 pip install Flask
+pip install SQLAlchemy
 pip install Flask-SQLAlchemy
+pip install WTForms
 pip install Flask-WTF
 ```
-`SQLAlchemy` and `WTForms`, which are each imported in this project, are dependencies of their respective Flask extensions; they are installed automatically with the above statements.
 
 1) To create and prepopulate the database, navigate to project root and run:
 ```

@@ -25,9 +25,9 @@
       <div><a href="{{ url_for('shelters.delete', shelter_id=shelter.id) }}">Delete Shelter Profile</a></div>
     </div>
     <div class="sheltered_puppy_photo_list">
-      {% if shelter.puppies and shelter.puppies|length %}
+      {% if puppies|length %}
       <h4 class="sheltered_puppies_head">Puppies</h4>
-        {% for puppy in shelter.puppies %}
+        {% for puppy in puppies %}
         <div class="sheltered-puppy">
           {% if puppy.profile.picture and puppy.profile.picture|length %}
           <img class="puppy_small_photo"
@@ -44,4 +44,16 @@
   </div>
   <a href="{{ url_for('shelters.list_all') }}">Go back</a>
 </div>
+{% endblock %}
+
+{% block pagenav %}
+{% if page and pagelimit and pagelimit > 1 %}
+<div class="page_nav">
+  {% for i in range(1, pagelimit+1) %}
+  <span class="page_number {% if i == page %}current{% endif %}">
+    <a href="{{ url_for('shelters.profile', shelter_id=shelter.id, p=i) }}">{{ i }}</a>
+  </span>
+  {% endfor %}
+</div>
+{% endif %}
 {% endblock %}

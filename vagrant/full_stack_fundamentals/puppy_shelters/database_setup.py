@@ -1,6 +1,18 @@
-from sqlalchemy import create_engine
-from puppyapp.models import Base
+"""
+Deletes, recreates and repopulates database in puppyapp directory
+"""
 
+from puppyapp import app, db
+from puppypopulator import populate
+import datetime
+import random
+import os
 
-engine = create_engine("sqlite:///puppies.db")
-Base.metadata.create_all(engine)
+try:
+    os.remove("./puppyapp/puppies.db")
+except OSError:
+    pass
+
+with app.app_context():
+  db.create_all()
+  populate()

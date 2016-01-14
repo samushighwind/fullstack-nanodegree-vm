@@ -7,7 +7,7 @@
       <a href="{{ url_for('adopters.profile', adopter_id=adopter.id) }}">
         <h3 class="adopter_name">{{ adopter.name }}</h3>
       </a>
-      <div class="puppy_count">{{ adopter.puppies|length }} puppies</div>
+      <div class="puppy_count">{{ adopter.puppies.count() }} puppies</div>
     </div>
   </div>
   {% endfor %}

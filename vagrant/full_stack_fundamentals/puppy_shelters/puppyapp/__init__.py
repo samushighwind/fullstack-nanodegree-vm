@@ -3,8 +3,12 @@ from .views.puppies import puppies_bp, home_bp
 from .views.adopters import adopters_bp
 from .views.shelters import shelters_bp
 from .util.filters import names_filter, one_dec_place_filter
+from .db import db
 
 app = Flask(__name__)
+
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///puppies.db"
+db.init_app(app)
 
 app.register_blueprint(home_bp)
 app.register_blueprint(puppies_bp, url_prefix="/puppies")

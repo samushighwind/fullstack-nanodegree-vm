@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from datetime import date
-from .helpers import get_number_of_pages, get_current_page, ITEMS_PER_PAGE
+from .helpers import get_results_for_current_page
 from ..models import Puppy, PuppyProfile, Adopter, Shelter
 from ..actions import check_in_puppy, process_puppy_adoption
-from ..db import session
+from ..db import db
 
 
 puppies_bp = Blueprint("puppies", __name__)
@@ -11,11 +11,10 @@ puppies_bp = Blueprint("puppies", __name__)
 
 @puppies_bp.route("/")
 def list_all():
-    pagelimit = get_number_of_pages(Puppy)
-    page = get_current_page(pagelimit)
-    puppies = session.query(Puppy) \
-                     .offset((page-1) * ITEMS_PER_PAGE) \
-                     .limit(ITEMS_PER_PAGE)
+    (puppies, page, pagelimit) = get_results_for_current_page(
+        Puppy.query,
+        Puppy.name
+    )
     return render_template(
         "puppy_list.html",
         puppies=puppies,
@@ -26,7 +25,7 @@ def list_all():
 
 @puppies_bp.route("/<int:puppy_id>/")
 def profile(puppy_id):
-    puppy = session.query(Puppy).filter_by(id=puppy_id).one()
+    puppy = Puppy.query.filter_by(id=puppy_id).one()
     return render_template("puppy.html", puppy=puppy)
 
 
@@ -45,8 +44,8 @@ def new():
                 special_needs=f["special_needs"]
             )
         )
-        session.add_all([new_puppy, new_puppy.profile])
-        session.commit()
+        db.session.add_all([new_puppy, new_puppy.profile])
+        db.session.commit()
         flash(new_puppy.name + " has been registered!")
         return redirect(url_for("puppies.profile", puppy_id=new_puppy.id))
 
@@ -57,7 +56,7 @@ def new():
 def edit(puppy_id):
     if request.method == "POST":
         f = request.form
-        puppy = session.query(Puppy).filter_by(id=puppy_id).one()
+        puppy = Puppy.query.filter_by(id=puppy_id).one()
         puppy.name = f["name"]
         puppy.gender = f["gender"]
         puppy.date_of_birth = date(*[int(d) for d in f["birthdate"].split("-")])
@@ -65,39 +64,39 @@ def edit(puppy_id):
         puppy.profile.picture = f["picture"]
         puppy.profile.description = f["description"]
         puppy.special_needs = f["special_needs"]
-        session.add_all([puppy, puppy.profile])
-        session.commit()
+        db.session.add_all([puppy, puppy.profile])
+        db.session.commit()
         flash(puppy.name + "'s information has been updated.")
         return redirect(url_for("puppies.profile", puppy_id=puppy_id))
 
-    puppy = session.query(Puppy).filter_by(id=puppy_id).one()
+    puppy = Puppy.query.filter_by(id=puppy_id).one()
     return render_template("edit_puppy.html", puppy=puppy)
 
 
 @puppies_bp.route("/<int:puppy_id>/delete/", methods=["GET", "POST"])
 def delete(puppy_id):
     if request.method == "POST":
-        puppy = session.query(Puppy).filter_by(id=puppy_id).one()
-        session.delete(puppy)
-        session.commit()
+        puppy = Puppy.query.filter_by(id=puppy_id).one()
+        db.session.delete(puppy)
+        db.session.commit()
         flash(puppy.name + " was put to sleep.")
         return redirect(url_for("puppies.list_all"))
 
-    puppy = session.query(Puppy).filter_by(id=puppy_id).one()
+    puppy = Puppy.query.filter_by(id=puppy_id).one()
     return render_template("delete_puppy.html", puppy=puppy)
 
 
 @puppies_bp.route("/<int:puppy_id>/switch_shelter/", methods=["GET", "POST"])
 def new_shelter(puppy_id):
     if request.method == "POST":
-        puppy = session.query(Puppy).filter_by(id=puppy_id).one()
+        puppy = Puppy.query.filter_by(id=puppy_id).one()
         shelter_id = request.form["shelter_id"]
-        shelter = session.query(Shelter).filter_by(id=shelter_id).one()
+        shelter = Shelter.query.filter_by(id=shelter_id).one()
         flash(check_in_puppy(puppy, shelter))
         return redirect(url_for("puppies.profile", puppy_id=puppy_id))
 
-    puppy = session.query(Puppy).filter_by(id=puppy_id).one()
-    shelters = session.query(Shelter).all()
+    puppy = Puppy.query.filter_by(id=puppy_id).one()
+    shelters = Shelter.query.order_by(Shelter.name).all()
     return render_template(
         "switch_shelter.html",
         puppy=puppy,
@@ -112,8 +111,8 @@ def adopt(puppy_id):
         flash(process_puppy_adoption(puppy_id, adopter_ids))
         return redirect(url_for("puppies.profile", puppy_id=puppy_id))
 
-    puppy = session.query(Puppy).filter_by(id=puppy_id).one()
-    adopters = session.query(Adopter).all()
+    puppy = Puppy.query.filter_by(id=puppy_id).one()
+    adopters = Adopter.query.order_by(Adopter.name).all()
     return render_template("adopt_puppy.html", puppy=puppy, adopters=adopters)
 
 

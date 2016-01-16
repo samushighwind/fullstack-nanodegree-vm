@@ -4,28 +4,28 @@
 <form class="shelter_action" action="{{ action }}" method="post" enc="multipart/form-data">
   {{ form.hidden_tag() }}
   <h3 class="shelter_form_head">{{ heading_text }}</h3>
-  <div class="shelter_name_field">
+  <div class="shelter_name_field field_container">
     {{ render_field(form.name, required="required", **get_default_attr_dict(shelter, "name")) }}
   </div>
-  <div class="shelter_address_field">
+  <div class="shelter_address_field field_container">
     {{ render_field(form.address, **get_default_attr_dict(shelter, "address")) }}
   </div>
-  <div class="shelter_city_field">
+  <div class="shelter_city_field field_container">
     {{ render_field(form.city, **get_default_attr_dict(shelter, "city")) }}
   </div>
-  <div class="shelter_state_field">
+  <div class="shelter_state_field field_container">
     {{ render_field(form.state, **get_default_attr_dict(shelter, "state")) }}
   </div>
-  <div class="shelter_zip_code_field">
+  <div class="shelter_zip_code_field field_container">
     {{ render_field(form.zip_code, **get_default_attr_dict(shelter, "zip_code")) }}
   </div>
-  <div class="shelter_website_field">
+  <div class="shelter_website_field field_container">
     {{ render_field(form.website, **get_default_attr_dict(shelter, "website")) }}
   </div>
-  <div class="shelter_maximum_capacity_field">
+  <div class="shelter_maximum_capacity_field field_container">
     {{ render_field(form.maximum_capacity, min=1, max=500, step=1, required="required", **get_default_attr_dict(shelter, "maximum_capacity")) }}
   </div>
   <div class="shelter_submit"><input type="submit" value="{{ submit_text }}"></div>
 </form>
-<a href="{{ back_href }}">Go back</a>
+<div class="back_button_container"><a class="back_button" href="{{ back_href }}">&lt; Go back</a></div>
 {% endmacro %}

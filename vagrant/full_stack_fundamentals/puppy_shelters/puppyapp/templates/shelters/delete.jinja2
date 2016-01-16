@@ -5,5 +5,5 @@
   <h3 class="shelter_delete_head">Are you sure you want to delete {{ shelter.name }} from the database?</h3>
   <div class="shelter_delete_submit"><input type="submit" value="Delete"></div>
 </form>
-<a href="{{ url_for('shelters.profile', shelter_id=shelter.id) }}">Go back</a>
+<div class="back_button_container"><a class="back_button" href="{{ url_for('shelters.profile', shelter_id=shelter.id) }}">&lt; Go back</a></div>
 {% endblock %}

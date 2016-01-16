@@ -10,5 +10,5 @@
   </div>
   <div class="adopt_puppy_submit"><input type="submit" value="Confirm"></div>
 </form>
-<a href="{{ url_for('puppies.profile', puppy_id=puppy.id) }}">Go back</a>
+<div class="back_button_container"><a class="back_button" href="{{ url_for('puppies.profile', puppy_id=puppy.id) }}">&lt; Go back</a></div>
 {% endblock %}

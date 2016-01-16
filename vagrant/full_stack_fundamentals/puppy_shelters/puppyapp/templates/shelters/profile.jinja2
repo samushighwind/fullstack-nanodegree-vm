@@ -26,9 +26,9 @@
       <div><a href="{{ url_for('shelters.edit', shelter_id=shelter.id) }}">Edit Shelter Info</a></div>
       <div><a href="{{ url_for('shelters.delete', shelter_id=shelter.id) }}">Delete Shelter Profile</a></div>
     </div>
+    <div class="back_button_container"><a class="back_button" href="{{ url_for('shelters.list_all') }}">&lt; Go back</a></div>
     {% include "embedded_puppy_list.jinja2" %}
   </div>
-  <a href="{{ url_for('shelters.list_all') }}">Go back</a>
 </div>
 {% endblock %}
 

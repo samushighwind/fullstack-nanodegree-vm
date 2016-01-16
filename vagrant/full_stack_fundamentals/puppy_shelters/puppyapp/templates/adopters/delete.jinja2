@@ -5,5 +5,5 @@
   <h3 class="adopter_delete_head">Are you sure you want to delete {{ adopter.name }} from the database?</h3>
   <div class="adopter_delete_submit"><input type="submit" value="Delete"></div>
 </form>
-<a href="{{ url_for('adopters.profile', adopter_id=adopter.id) }}">Go back</a>
+<div class="back_button_container"><a class="back_button" href="{{ url_for('adopters.profile', adopter_id=adopter.id) }}">&lt; Go back</a></div>
 {% endblock %}

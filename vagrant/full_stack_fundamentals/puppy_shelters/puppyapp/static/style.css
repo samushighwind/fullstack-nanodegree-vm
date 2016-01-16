@@ -1,11 +1,151 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
 body {
-  font-family: 'Oswald', sans-serif;
+  margin: 0;
+}
+
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 18px;
+}
+
+h1, h2, h3,
+h4, h5, h6 {
+  font-family: 'Chau Philomene One', sans-serif;
+  font-style: italic;
+  margin: 0 0 0.4em;
+}
+
+h1 {
+  font-size: 3em;
+}
+
+h2 {
+  font-size: 2.6em;
+}
+
+h3 {
+  font-size: 2.2em;
+}
+
+h4 {
+  font-size: 1.8em;
+}
+
+h5 {
+  font-size: 1.4em;
+}
+
+h6 {
+  font-size: 1em;
 }
 
 a {
   text-decoration: none;
+  color: #c35817;
 }
 
 img {
   max-width: 100%;
+}
+
+.header,
+.footer {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.header_text {
+  margin: 20px 0 30px;
+}
+
+.flash_box {
+  width: 100%;
+  background-color: #c35817;
+  color: #ffffff;
+  font-weight: bold;
+  text-align: center;
+  margin: 0;
+  padding: 5px;
+}
+
+.menu_item,
+.page_number {
+  font-size: 24px;
+  font-weight: bold;
+  margin-left: 0.15em;
+  margin-right: 0.15em;
+}
+
+.main_content {
+  max-width: 500px;
+  margin: 0 auto 30px;
+}
+
+.puppy_card,
+.shelter_card,
+.adopter_card {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #666;
+  background-color: #eee;
+}
+
+.puppy_card {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.puppy_card_photo {
+  height: 240px;
+  margin-right: 20px;
+}
+
+.puppy_home {
+  font-style: italic;
+}
+
+.puppy_description {
+  font-size: 1.2em;
+}
+
+.puppy_bottom_panel {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.puppy_options {
+  text-align: right;
+}
+
+.field_container {
+  margin: 8px 0;
+  display: flex;
+  align-items: flex-start;
+}
+
+.field_container label {
+  margin-right: 10px;
+}
+
+.field_container input {
+  font-size: 0.8em;
+}
+
+.back_button_container {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.page_number.current {
+  border-bottom: 3px solid #333;
 }

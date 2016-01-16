@@ -11,5 +11,5 @@
   {% endif %}
   <div class="puppy_delete_submit"><input type="submit" value="Do it."></div>
 </form>
-<a href="{{ url_for('puppies.profile', puppy_id=puppy.id) }}">Go back</a>
+<div class="back_button_container"><a class="back_button" href="{{ url_for('puppies.profile', puppy_id=puppy.id) }}">&lt; Go back</a></div>
 {% endblock %}

@@ -4,10 +4,10 @@
 <form class="adopter_action" action="{{ action }}" method="post">
   {{ form.hidden_tag() }}
   <h3 class="adopter_form_head">{{ heading_text }}</h3>
-  <div class="adopter_name_field">
+  <div class="adopter_name_field field_container">
     {{ render_field(form.name, placeholder="Sam", required="required", **get_default_attr_dict(adopter, "name")) }}
   </div>
   <div class="adopter_submit"><input type="submit" value="{{ submit_text }}"></div>
 </form>
-<a href="{{ back_href }}">Go back</a>
+<div class="back_button_container"><a class="back_button" href="{{ back_href }}">&lt; Go back</a></div>
 {% endmacro %}

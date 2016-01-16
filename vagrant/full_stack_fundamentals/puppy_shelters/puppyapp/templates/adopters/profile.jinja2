@@ -9,9 +9,9 @@
       <div><a href="{{ url_for('adopters.edit', adopter_id=adopter.id) }}">Edit Adopter Info</a></div>
       <div><a href="{{ url_for('adopters.delete', adopter_id=adopter.id) }}">Delete Adopter Profile</a></div>
     </div>
+    <div class="back_button_container"><a class="back_button" href="{{ url_for('adopters.list_all') }}">&lt; Go back</a></div>
     {% include "embedded_puppy_list.jinja2" %}
   </div>
-  <a href="{{ url_for('adopters.list_all') }}">Go back</a>
 </div>
 {% endblock %}
 

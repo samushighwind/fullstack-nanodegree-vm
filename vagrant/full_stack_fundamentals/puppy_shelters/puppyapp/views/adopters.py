@@ -16,7 +16,7 @@ def list_all():
         Adopter.name
     )
     return render_template(
-        "adopter_list.html",
+        "adopters/list_all.html",
         adopters=adopters,
         page=page,
         pagelimit=pagelimit
@@ -31,7 +31,7 @@ def profile(adopter_id):
         Puppy.name
     )
     return render_template(
-        "adopter.html",
+        "adopters/profile.html",
         adopter=adopter,
         puppies=puppies,
         page=page,
@@ -50,7 +50,7 @@ def new():
         flash(new_adopter.name + " has been registered!")
         return redirect(url_for("adopters.profile", adopter_id=new_adopter.id))
 
-    return render_template("new_adopter.html", form=form)
+    return render_template("adopters/new.html", form=form)
 
 
 @adopters_bp.route("/<int:adopter_id>/edit/", methods=["GET", "POST"])
@@ -67,7 +67,7 @@ def edit(adopter_id):
             flash(adopter.name + "'s information has been updated.")
             return redirect(url_for("adopters.profile", adopter_id=adopter_id))
 
-    return render_template("edit_adopter.html", form=form, adopter=adopter)
+    return render_template("adopters/edit.html", form=form, adopter=adopter)
 
 
 @adopters_bp.route("/<int:adopter_id>/delete/", methods=["GET", "POST"])
@@ -82,4 +82,4 @@ def delete(adopter_id):
         flash(adopter.name + " was deleted from the database.")
         return redirect(url_for("adopters.list_all"))
 
-    return render_template("delete_adopter.html", form=form, adopter=adopter)
+    return render_template("adopters/delete.html", form=form, adopter=adopter)

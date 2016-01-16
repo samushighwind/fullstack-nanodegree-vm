@@ -1,3 +1,5 @@
+{% from "macros.html" import page_nav %}
+
 {% extends "layout.html" %}
 {% block content %}
 <div class="shelter">
@@ -47,13 +49,5 @@
 {% endblock %}
 
 {% block pagenav %}
-{% if page and pagelimit and pagelimit > 1 %}
-<div class="page_nav">
-  {% for i in range(1, pagelimit+1) %}
-  <span class="page_number {% if i == page %}current{% endif %}">
-    <a href="{{ url_for('shelters.profile', shelter_id=shelter.id, p=i) }}">{{ i }}</a>
-  </span>
-  {% endfor %}
-</div>
-{% endif %}
+{{ page_nav(page, pagelimit, route="shelters.profile", shelter_id=shelter.id) }}
 {% endblock %}

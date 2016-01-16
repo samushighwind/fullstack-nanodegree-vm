@@ -1,3 +1,5 @@
+{% from "macros.html" import page_nav %}
+
 {% extends "layout.html" %}
 {% block content %}
 <div class="adopter_list">
@@ -15,13 +17,5 @@
 {% endblock %}
 
 {% block pagenav %}
-{% if page and pagelimit and pagelimit > 1 %}
-<div class="page_nav">
-  {% for i in range(1, pagelimit+1) %}
-  <span class="page_number {% if i == page %}current{% endif %}">
-    <a href="{{ url_for('adopters.list_all', p=i) }}">{{ i }}</a>
-  </span>
-  {% endfor %}
-</div>
-{% endif %}
+{{ page_nav(page, pagelimit, route="adopters.list_all") }}
 {% endblock %}

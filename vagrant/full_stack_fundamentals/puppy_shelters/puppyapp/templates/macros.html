@@ -23,3 +23,15 @@
 </ul>
 {% endif %}
 {% endmacro %}
+
+{% macro page_nav(page, pagelimit, route) %}
+{% if page and pagelimit and pagelimit > 1 %}
+<div class="page_nav">
+  {% for i in range(1, pagelimit+1) %}
+  <span class="page_number {% if i == page %}current{% endif %}">
+    <a href="{{ url_for(route, p=i, **kwargs) }}">{{ i }}</a>
+  </span>
+  {% endfor %}
+</div>
+{% endif %}
+{% endmacro %}

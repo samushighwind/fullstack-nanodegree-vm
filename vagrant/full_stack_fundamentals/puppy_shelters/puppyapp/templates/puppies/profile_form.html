@@ -1,4 +1,4 @@
-{% from "field_renderers.html" import render_field %}
+{% from "macros.html" import render_field %}
 
 {% macro render_puppy_profile_form(form, action, back_href, heading_text, submit_text, puppy=None) %}
 <form class="puppy_action" action="{{ action }}" method="post" enc="multipart/form-data">

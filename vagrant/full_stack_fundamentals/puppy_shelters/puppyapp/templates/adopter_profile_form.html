@@ -1,0 +1,13 @@
+{% from "macros.html" import render_field %}
+
+{% macro render_adopter_profile_form(form, action, back_href, heading_text, submit_text, adopter=None) %}
+<form class="adopter_action" action="{{ action }}" method="post">
+  {{ form.hidden_tag() }}
+  <h3 class="adopter_form_head">{{ heading_text }}</h3>
+  <div class="adopter_name_field">
+    {{ render_field(form.name, placeholder="Sam", required="required", **get_default_attr_dict(adopter, "name")) }}
+  </div>
+  <div class="adopter_submit"><input type="submit" value="{{ submit_text }}"></div>
+</form>
+<a href="{{ back_href }}">Go back</a>
+{% endmacro %}

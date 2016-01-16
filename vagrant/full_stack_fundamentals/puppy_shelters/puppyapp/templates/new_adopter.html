@@ -1,12 +1,6 @@
+{% from "adopter_profile_form.html" import render_adopter_profile_form %}
+
 {% extends "layout.html" %}
 {% block content %}
-<form class="adopter_action adopter_new" action="{{ url_for('adopters.new') }}" method="post">
-  <h3 class="adopter_new_head">Register a new adopter</h3>
-  <div class="adopter_name_field">
-    <label for="name">Name</label>
-    <input type="text" name="name" placeholder="Sam" required>
-  </div>
-  <div class="adopter_new_submit"><input type="submit" value="Register adopter"></div>
-</form>
-<a href="{{ url_for('adopters.list_all') }}">Go back</a>
+{{ render_adopter_profile_form(form=form, action=url_for("adopters.new"), back_href=url_for("adopters.list_all"), heading_text="Register a new adopter", submit_text="Register adopter") }}
 {% endblock %}

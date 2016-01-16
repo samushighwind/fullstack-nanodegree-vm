@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
-<form class="adopter_action adopter_delete" action="{{ url_for('adopters.delete', adopter_id=adopter.id) }}" method="post">
+<form class="adopter_action adopter_delete" action="{{ url_for('adopters.delete', adopter_id=adopter.id) }}" method="post" enc="multipart/form-data">
+  {{ form.hidden_tag() }}
   <h3 class="adopter_delete_head">Are you sure you want to delete {{ adopter.name }} from the database?</h3>
   <div class="adopter_delete_submit"><input type="submit" value="Delete"></div>
 </form>

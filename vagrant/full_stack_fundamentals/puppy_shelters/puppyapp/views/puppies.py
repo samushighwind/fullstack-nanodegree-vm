@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask.ext.wtf import Form
-from datetime import date
 from .helpers import get_results_for_current_page
 from ..models import Puppy, PuppyProfile, Adopter, Shelter
 from ..actions import check_in_puppy, process_puppy_adoption
@@ -60,7 +59,7 @@ def edit(puppy_id):
     puppy = Puppy.query.filter_by(id=puppy_id).one()
     form = PuppyProfileForm()
 
-    if form.validate_on_submit():
+    if form.is_submitted():
         puppy.name = form.name.data
         puppy.gender = form.gender.data
         puppy.date_of_birth = form.birthdate.data
@@ -68,10 +67,12 @@ def edit(puppy_id):
         puppy.profile.picture = form.picture.data
         puppy.profile.description = form.description.data
         puppy.special_needs = form.special_needs.data
-        db.session.add_all([puppy, puppy.profile])
-        db.session.commit()
-        flash(puppy.name + "'s information has been updated.")
-        return redirect(url_for("puppies.profile", puppy_id=puppy_id))
+
+        if form.validate():
+            db.session.add_all([puppy, puppy.profile])
+            db.session.commit()
+            flash(puppy.name + "'s information has been updated.")
+            return redirect(url_for("puppies.profile", puppy_id=puppy_id))
 
     return render_template("edit_puppy.html", form=form, puppy=puppy)
 
@@ -88,11 +89,7 @@ def delete(puppy_id):
         flash(puppy.name + " was put to sleep.")
         return redirect(url_for("puppies.list_all"))
 
-    return render_template(
-        "delete_puppy.html",
-        form=form,
-        puppy=puppy
-    )
+    return render_template("delete_puppy.html", form=form, puppy=puppy)
 
 
 @puppies_bp.route("/<int:puppy_id>/switch_shelter/", methods=["GET", "POST"])

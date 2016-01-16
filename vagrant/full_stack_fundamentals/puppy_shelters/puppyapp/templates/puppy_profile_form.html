@@ -1,7 +1,7 @@
 {% from "macros.html" import render_field %}
 
 {% macro render_puppy_profile_form(form, action, back_href, heading_text, submit_text, puppy=None) %}
-<form class="puppy_action puppy_new" action="{{ action }}" method="post" enc="multipart/form-data">
+<form class="puppy_action" action="{{ action }}" method="post" enc="multipart/form-data">
   {{ form.hidden_tag() }}
   <h3 class="puppy_form_head">{{ heading_text }}</h3>
   <div class="puppy_name_field">

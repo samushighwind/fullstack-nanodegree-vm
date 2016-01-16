@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask.ext.wtf import Form
 from .helpers import get_results_for_current_page
 from ..models import Shelter, Puppy
+from ..forms import ShelterProfileForm
 from ..db import db
 
 
@@ -39,54 +41,58 @@ def profile(shelter_id):
 
 @shelters_bp.route("/new/", methods=["GET", "POST"])
 def new():
-    if request.method == "POST":
-        f = request.form
+    form = ShelterProfileForm()
+
+    if form.validate_on_submit():
         new_shelter = Shelter(
-            name=f["name"],
-            address=f["address"],
-            city=f["city"],
-            state=f["state"],
-            zip_code=f["zip_code"],
-            website=f["website"],
-            maximum_capacity=f["maximum_capacity"]
+            name=form.name.data,
+            address=form.address.data,
+            city=form.city.data,
+            state=form.state.data,
+            zip_code=form.zip_code.data,
+            website=form.website.data,
+            maximum_capacity=form.maximum_capacity.data
         )
         db.session.add(new_shelter)
         db.session.commit()
         flash(new_shelter.name + " has been registered!")
         return redirect(url_for("shelters.profile", shelter_id=new_shelter.id))
 
-    return render_template("new_shelter.html")
+    return render_template("new_shelter.html", form=form)
 
 
 @shelters_bp.route("/<int:shelter_id>/edit/", methods=["GET", "POST"])
 def edit(shelter_id):
-    if request.method == "POST":
-        f = request.form
-        shelter = Shelter.query.filter_by(id=shelter_id).one()
-        shelter.name=f["name"]
-        shelter.address=f["address"]
-        shelter.city=f["city"]
-        shelter.state=f["state"]
-        shelter.zip_code=f["zip_code"]
-        shelter.website=f["website"]
-        shelter.maximum_capacity=f["maximum_capacity"]
-        db.session.add(shelter)
-        db.session.commit()
-        flash(shelter.name + "'s information has been updated.")
-        return redirect(url_for("shelters.profile", shelter_id=shelter_id))
-
     shelter = Shelter.query.filter_by(id=shelter_id).one()
-    return render_template("edit_shelter.html", shelter=shelter)
+    form = ShelterProfileForm()
+
+    if form.is_submitted():
+        shelter.name = form.name.data
+        shelter.address = form.address.data
+        shelter.city = form.city.data
+        shelter.state = form.state.data
+        shelter.zip_code = form.zip_code.data
+        shelter.website = form.website.data
+        shelter.maximum_capacity = form.maximum_capacity.data
+
+        if form.validate():
+            db.session.add(shelter)
+            db.session.commit()
+            flash(shelter.name + "'s information has been updated.")
+            return redirect(url_for("shelters.profile", shelter_id=shelter_id))
+
+    return render_template("edit_shelter.html", form=form, shelter=shelter)
 
 
 @shelters_bp.route("/<int:shelter_id>/delete/", methods=["GET", "POST"])
 def delete(shelter_id):
-    if request.method == "POST":
-        shelter = Shelter.query.filter_by(id=shelter_id).one()
+    shelter = Shelter.query.filter_by(id=shelter_id).one()
+    form = Form()
+
+    if form.validate_on_submit():
         db.session.delete(shelter)
         db.session.commit()
         flash(shelter.name + " was deleted from the database.")
         return redirect(url_for("shelters.list_all"))
 
-    shelter = Shelter.query.filter_by(id=shelter_id).one()
-    return render_template("delete_shelter.html", shelter=shelter)
+    return render_template("delete_shelter.html", form=form, shelter=shelter)

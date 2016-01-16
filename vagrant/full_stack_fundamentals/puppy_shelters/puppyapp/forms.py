@@ -1,9 +1,9 @@
 from flask.ext.wtf import Form
 from wtforms.fields import (
     StringField, SelectField, RadioField,
-    TextAreaField, IntegerField, SelectMultipleField
+    TextAreaField, SelectMultipleField
 )
-from wtforms.fields.html5 import DateField, URLField, DecimalField
+from wtforms.fields.html5 import DateField, URLField, DecimalField, IntegerField
 from wtforms.validators import DataRequired, Optional, AnyOf, NumberRange, URL
 from wtforms.widgets import ListWidget, CheckboxInput
 import datetime

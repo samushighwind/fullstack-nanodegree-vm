@@ -1,36 +1,6 @@
+{% from "shelter_profile_form.html" import render_shelter_profile_form %}
+
 {% extends "layout.html" %}
 {% block content %}
-<form class="shelter_action shelter_new" action="{{ url_for('shelters.new') }}" method="post">
-  <h3 class="shelter_new_head">Register a new shelter</h3>
-  <div class="shelter_name_field">
-    <label for="name">Name</label>
-    <input type="text" name="name" required>
-  </div>
-  <div class="shelter_address_field">
-    <label for="address">Address</label>
-    <input type="text" name="address">
-  </div>
-  <div class="shelter_city_field">
-    <label for="city">City</label>
-    <input type="text" name="city">
-  </div>
-  <div class="shelter_state_field">
-    <label for="state">State</label>
-    <input type="text" name="state">
-  </div>
-  <div class="shelter_zip_code_field">
-    <label for="zip_code">ZIP Code</label>
-    <input type="text" name="zip_code">
-  </div>
-  <div class="shelter_website_field">
-    <label for="website">Website</label>
-    <input type="text" name="website">
-  </div>
-  <div class="shelter_maximum_capacity_field">
-    <label for="maximum_capacity">Maximum Capacity</label>
-    <input type="number" name="maximum_capacity" min="1" max="500" value="20" required>
-  </div>
-  <div class="shelter_new_submit"><input type="submit" value="Register shelter"></div>
-</form>
-<a href="{{ url_for('shelters.list_all') }}">Go back</a>
+{{ render_shelter_profile_form(form=form, action=url_for("shelters.new"), back_href=url_for("shelters.list_all"), heading_text="Register a new shelter", submit_text="Register shelter") }}
 {% endblock %}

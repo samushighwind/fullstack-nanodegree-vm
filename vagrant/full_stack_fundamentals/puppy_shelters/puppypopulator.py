@@ -63,8 +63,9 @@ def populate():
         return birthday
 
     #This method will create a random weight between 1.0-40.0 pounds (or whatever unit of measure you prefer)
+    #results will be rounded to nearest tenth (0.1)
     def CreateRandomWeight():
-        return random.uniform(1.0, 40.0)
+        return round(random.uniform(1.0, 40.0) / 0.1) * 0.1
 
     adopters = []
     for i,x in enumerate(adopter_names):

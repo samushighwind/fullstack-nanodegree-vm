@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
-<form class="puppy_action puppy_delete" action="{{ url_for('puppies.delete', puppy_id=puppy.id) }}" method="post">
+<form class="puppy_action puppy_delete" action="{{ url_for('puppies.delete', puppy_id=puppy.id) }}" method="post" enc="multipart/form-data">
+  {{ form.hidden_tag() }}
   <h3 class="puppy_delete_head">Are you sure you want to put {{ puppy.name }} to sleep?</h3>
   {% if puppy.profile.picture and puppy.profile.picture|length %}
   <img class="puppy_big_photo"

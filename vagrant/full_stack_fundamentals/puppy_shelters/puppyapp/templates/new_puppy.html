@@ -1,39 +1,6 @@
+{% from "puppy_profile_form.html" import render_puppy_profile_form %}
+
 {% extends "layout.html" %}
 {% block content %}
-<form class="puppy_action puppy_new" action="{{ url_for('puppies.new') }}" method="post">
-  <h3 class="puppy_new_head">Register a new puppy</h3>
-  <div class="puppy_name_field">
-    <label for="name">Name</label>
-    <input type="text" name="name" placeholder="Spot" required>
-  </div>
-  <div class="puppy_gender_field">
-    <label for="gender">Gender</label>
-    <select name="gender">
-      <option value="female" selected>female</option>
-      <option value="male">male</option>
-    </select>
-  </div>
-  <div class="puppy_birthdate_field">
-    <label for="birthdate">Birthdate</label>
-    <input type="date" name="birthdate" value="2016-01-01" required>
-  </div>
-  <div class="puppy_weight_field">
-    <label for="weight">Weight (lbs.)</label>
-    <input type="number" name="weight" min="1.0" max="40.0" step="0.1" value="20.0" required>
-  </div>
-  <div class="puppy_picture_field">
-    <label for="picture">Photo URL</label>
-    <input type="text" name="picture">
-  </div>
-  <div class="puppy_description_field">
-    <label for="description">Description</label>
-    <textarea name="description"></textarea>
-  </div>
-  <div class="puppy_special_needs_field">
-    <label for="special_needs">Special Needs</label>
-    <textarea name="special_needs"></textarea>
-  </div>
-  <div class="puppy_new_submit"><input type="submit" value="Register puppy"></div>
-</form>
-<a href="{{ url_for('puppies.list_all') }}">Go back</a>
+{{ render_puppy_profile_form(form=form, action=url_for("puppies.new"), back_href=url_for("puppies.list_all"), heading_text="Register a new puppy", submit_text="Register puppy") }}
 {% endblock %}

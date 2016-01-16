@@ -1,0 +1,31 @@
+{% from "macros.html" import render_field %}
+
+{% macro render_puppy_profile_form(form, action, back_href, heading_text, submit_text, puppy=None) %}
+<form class="puppy_action puppy_new" action="{{ action }}" method="post" enc="multipart/form-data">
+  {{ form.hidden_tag() }}
+  <h3 class="puppy_form_head">{{ heading_text }}</h3>
+  <div class="puppy_name_field">
+    {{ render_field(form.name, placeholder="Spot", required="required", **get_default_attr_dict(puppy, "name")) }}
+  </div>
+  <div class="puppy_gender_field">
+    {{ render_field(form.gender, required="required", **get_default_attr_dict(puppy, "gender")) }}
+  </div>
+  <div class="puppy_birthdate_field">
+    {{ render_field(form.birthdate, required="required", **get_default_attr_dict(puppy, "date_of_birth")) }}
+  </div>
+  <div class="puppy_weight_field">
+    {{ render_field(form.weight, min=1.0, max=40.0, step=0.1, required="required", **get_default_attr_dict(puppy, "weight_lbs")) }}
+  </div>
+  <div class="puppy_picture_field">
+    {{ render_field(form.picture, **get_default_attr_dict(puppy and puppy.profile or None, "picture")) }}
+  </div>
+  <div class="puppy_description_field">
+    {{ render_field(form.description, **get_default_attr_dict(puppy and puppy.profile or None, "description")) }}
+  </div>
+  <div class="puppy_special_needs_field">
+    {{ render_field(form.special_needs, **get_default_attr_dict(puppy and puppy.profile or None, "special_needs")) }}
+  </div>
+  <div class="puppy_submit"><input type="submit" value="{{ submit_text }}"></div>
+</form>
+<a href="{{ back_href }}">Go back</a>
+{% endmacro %}

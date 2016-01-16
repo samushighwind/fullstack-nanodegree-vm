@@ -1,11 +1,12 @@
+{% from "macros.html" import render_options_field %}
+
 {% extends "layout.html" %}
 {% block content %}
-<form class="adopt_puppy" action="{{ url_for('puppies.adopt', puppy_id=puppy.id) }}" method="post">
+<form class="adopt_puppy" action="{{ url_for('puppies.adopt', puppy_id=puppy.id) }}" method="post" enc="multipart/form-data">
+  {{ form.hidden_tag() }}
   <h3 class="adopt_puppy_head">Who will be adopting {{ puppy.name }}?</h3>
   <div class="adopter_selector">
-    {% for adopter in adopters %}
-    <div class="adopter_option"><label><input type="checkbox" name="adopter_id" value="{{ adopter.id }}">{{ adopter.name }}</label></div>
-    {% endfor %}
+    {{ render_options_field(form.adopter_ids) }}
   </div>
   <div class="adopt_puppy_submit"><input type="submit" value="Confirm"></div>
 </form>

@@ -1,14 +1,12 @@
+{% from "macros.html" import render_options_field %}
+
 {% extends "layout.html" %}
 {% block content %}
-<form class="switch_shelter" action="{{ url_for('puppies.new_shelter', puppy_id=puppy.id) }}" method="post">
+<form class="switch_shelter" action="{{ url_for('puppies.new_shelter', puppy_id=puppy.id) }}" method="post" enc="multipart/form-data">
+  {{ form.hidden_tag() }}
   <h3 class="switch_shelter_head">Choose a shelter for {{ puppy.name }}</h3>
   <div class="shelter_picker">
-    <select name="shelter_id" required>
-      <option value="" selected disabled>Select a shelter</option>
-      {% for shelter in shelters %}
-      <option value="{{ shelter.id }}">{{ shelter.name }}</option>
-      {% endfor %}
-    </select>
+    {{ render_options_field(form.shelter_id) }}
   </div>
   <div class="switch_shelter_submit"><input type="submit" value="Check in"></div>
 </form>

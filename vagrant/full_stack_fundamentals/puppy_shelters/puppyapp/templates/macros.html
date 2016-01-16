@@ -1,0 +1,25 @@
+<!-- render_field pattern derived from example at:
+  http://flask.pocoo.org/docs/0.10/patterns/wtforms/ -->
+{% macro render_field(field) %}
+{{ field.label }} {{ field(**kwargs)|safe }}
+{% if field.errors %}
+<ul class="errors">
+  {% for error in field.errors %}
+  <li>{{ error }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endmacro %}
+
+{% macro render_options_field(field) %}
+{% for option in field %}
+<div class="option">{{ option() }} {{ option.label }}</div>
+{% endfor %}
+{% if field.errors %}
+<ul class="errors">
+  {% for error in field.errors %}
+  <li>{{ error }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endmacro %}

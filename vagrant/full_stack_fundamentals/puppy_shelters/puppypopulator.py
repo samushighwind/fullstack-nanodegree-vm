@@ -81,7 +81,7 @@ def populate():
 
         new_puppy = Puppy(name = x, gender = "male", date_of_birth = CreateRandomAge(),shelter_id=random_shelter_id, weight_lbs= CreateRandomWeight())
         random_shelter.current_occupancy += 1
-        new_profile = PuppyProfile(picture=random.choice(puppy_images), description=random.choice(descriptions), special_needs=random.choice(special_needs_lists))
+        new_profile = PuppyProfile(picture="http://loremflickr.com/500/375/cute,puppy", description=random.choice(descriptions), special_needs=random.choice(special_needs_lists))
         new_puppy.profile = new_profile
         for a in adopters:
             if random.randint(0, 1) == 1:
@@ -99,7 +99,7 @@ def populate():
 
         new_puppy = Puppy(name = x, gender = "female", date_of_birth = CreateRandomAge(),shelter_id=random_shelter_id, weight_lbs= CreateRandomWeight())
         random_shelter.current_occupancy += 1
-        new_profile = PuppyProfile(picture=random.choice(puppy_images), description=random.choice(descriptions), special_needs=random.choice(special_needs_lists))
+        new_profile = PuppyProfile(picture="http://loremflickr.com/500/375/cute,puppy", description=random.choice(descriptions), special_needs=random.choice(special_needs_lists))
         new_puppy.profile = new_profile
         for a in adopters:
             if random.randint(0, 1) == 1:

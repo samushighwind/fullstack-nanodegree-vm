@@ -1,6 +1,6 @@
-{% from "adopters/profile_form.html" import render_adopter_profile_form %}
+{% from "adopters/profile_form.jinja2" import render_adopter_profile_form %}
 
-{% extends "layout.html" %}
+{% extends "layout.jinja2" %}
 {% block content %}
 {{ render_adopter_profile_form(form=form, action=url_for("adopters.edit", adopter_id=adopter.id), back_href=url_for("adopters.profile", adopter_id=adopter.id), heading_text="Edit adopter information", submit_text="Save", adopter=adopter) }}
 {% endblock %}

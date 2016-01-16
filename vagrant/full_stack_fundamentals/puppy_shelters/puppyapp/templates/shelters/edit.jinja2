@@ -1,6 +1,6 @@
-{% from "shelters/profile_form.html" import render_shelter_profile_form %}
+{% from "shelters/profile_form.jinja2" import render_shelter_profile_form %}
 
-{% extends "layout.html" %}
+{% extends "layout.jinja2" %}
 {% block content %}
 {{ render_shelter_profile_form(form=form, action=url_for("shelters.edit", shelter_id=shelter.id), back_href=url_for("shelters.profile", shelter_id=shelter.id), heading_text="Edit shelter information", submit_text="Save", shelter=shelter) }}
 {% endblock %}

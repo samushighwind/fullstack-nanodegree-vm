@@ -1,0 +1,20 @@
+{% from "macros.jinja2" import page_nav %}
+
+{% extends "layout.jinja2" %}
+{% block content %}
+<div class="adopter">
+  <h3 class="adopter_name">{{ adopter.name }}</h3>
+  <div class="adopter_bottom_panel">
+    <div class="adopter_options">
+      <div><a href="{{ url_for('adopters.edit', adopter_id=adopter.id) }}">Edit Adopter Info</a></div>
+      <div><a href="{{ url_for('adopters.delete', adopter_id=adopter.id) }}">Delete Adopter Profile</a></div>
+    </div>
+    {% include "embedded_puppy_list.jinja2" %}
+  </div>
+  <a href="{{ url_for('adopters.list_all') }}">Go back</a>
+</div>
+{% endblock %}
+
+{% block pagenav %}
+{{ page_nav(page, pagelimit, route="adopters.profile", adopter_id=adopter.id) }}
+{% endblock %}

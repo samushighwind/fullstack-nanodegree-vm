@@ -1,6 +1,6 @@
-{% from "macros.html" import page_nav %}
+{% from "macros.jinja2" import page_nav %}
 
-{% extends "layout.html" %}
+{% extends "layout.jinja2" %}
 {% block content %}
 <div class="shelter">
   <h3 class="shelter_name">{{ shelter.name }}</h3>
@@ -26,23 +26,7 @@
       <div><a href="{{ url_for('shelters.edit', shelter_id=shelter.id) }}">Edit Shelter Info</a></div>
       <div><a href="{{ url_for('shelters.delete', shelter_id=shelter.id) }}">Delete Shelter Profile</a></div>
     </div>
-    <div class="sheltered_puppy_photo_list">
-      {% if puppies|length %}
-      <h4 class="sheltered_puppies_head">Puppies</h4>
-        {% for puppy in puppies %}
-        <div class="sheltered-puppy">
-          {% if puppy.profile.picture and puppy.profile.picture|length %}
-          <img class="puppy_small_photo"
-               src="{{ puppy.profile.picture }}"
-               alt="A puppy named {{ puppy.name }}"/>
-          {% endif %}
-          <div class="adopted_puppy_name">{{ puppy.name }}</div>
-        </div>
-        {% endfor %}
-      {% else %}
-      <div class="no_puppies_message">NO PUPPIES</div>
-      {% endif %}
-    </div>
+    {% include "embedded_puppy_list.jinja2" %}
   </div>
   <a href="{{ url_for('shelters.list_all') }}">Go back</a>
 </div>

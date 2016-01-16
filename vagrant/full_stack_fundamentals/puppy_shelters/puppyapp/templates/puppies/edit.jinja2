@@ -1,6 +1,6 @@
-{% from "puppies/profile_form.html" import render_puppy_profile_form %}
+{% from "puppies/profile_form.jinja2" import render_puppy_profile_form %}
 
-{% extends "layout.html" %}
+{% extends "layout.jinja2" %}
 {% block content %}
 {{ render_puppy_profile_form(form=form, action=url_for("puppies.edit", puppy_id=puppy.id), back_href=url_for("puppies.profile", puppy_id=puppy.id), heading_text="Edit puppy information", submit_text="Save", puppy=puppy) }}
 {% endblock %}

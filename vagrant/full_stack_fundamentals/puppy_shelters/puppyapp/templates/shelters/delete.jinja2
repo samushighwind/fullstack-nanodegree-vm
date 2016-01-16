@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "layout.jinja2" %}
 {% block content %}
 <form class="shelter_action shelter_delete" action="{{ url_for('shelters.delete', shelter_id=shelter.id) }}" method="post" enc="multipart/form-data">
   {{ form.hidden_tag() }}

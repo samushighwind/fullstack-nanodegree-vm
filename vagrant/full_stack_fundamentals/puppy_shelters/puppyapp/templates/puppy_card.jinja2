@@ -1,0 +1,13 @@
+<div class="puppy_card">
+  {% if puppy.profile.picture and puppy.profile.picture|length %}
+  <img class="puppy_card_photo"
+       src="{{ puppy.profile.picture }}"
+       alt="A puppy named {{ puppy.name }}"/>
+  {% endif %}
+  <div class="puppy_card_right_panel">
+    <a href="{{ url_for('puppies.profile', puppy_id=puppy.id) }}">
+      <h3 class="puppy_name">{{ puppy.name }}</h3>
+    </a>
+    {% include "puppy_info.jinja2" %}
+  </div>
+</div>

@@ -1,6 +1,6 @@
-{% from "shelters/profile_form.html" import render_shelter_profile_form %}
+{% from "shelters/profile_form.jinja2" import render_shelter_profile_form %}
 
-{% extends "layout.html" %}
+{% extends "layout.jinja2" %}
 {% block content %}
 {{ render_shelter_profile_form(form=form, action=url_for("shelters.new"), back_href=url_for("shelters.list_all"), heading_text="Register a new shelter", submit_text="Register shelter") }}
 {% endblock %}

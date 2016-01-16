@@ -1,6 +1,6 @@
-{% from "adopters/profile_form.html" import render_adopter_profile_form %}
+{% from "adopters/profile_form.jinja2" import render_adopter_profile_form %}
 
-{% extends "layout.html" %}
+{% extends "layout.jinja2" %}
 {% block content %}
 {{ render_adopter_profile_form(form=form, action=url_for("adopters.new"), back_href=url_for("adopters.list_all"), heading_text="Register a new adopter", submit_text="Register adopter") }}
 {% endblock %}

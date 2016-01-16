@@ -1,4 +1,4 @@
-{% from "macros.html" import render_field %}
+{% from "macros.jinja2" import render_field %}
 
 {% macro render_shelter_profile_form(form, action, back_href, heading_text, submit_text, shelter=None) %}
 <form class="shelter_action" action="{{ action }}" method="post" enc="multipart/form-data">

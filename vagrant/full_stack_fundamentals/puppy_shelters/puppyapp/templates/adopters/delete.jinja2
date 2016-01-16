@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "layout.jinja2" %}
 {% block content %}
 <form class="adopter_action adopter_delete" action="{{ url_for('adopters.delete', adopter_id=adopter.id) }}" method="post" enc="multipart/form-data">
   {{ form.hidden_tag() }}

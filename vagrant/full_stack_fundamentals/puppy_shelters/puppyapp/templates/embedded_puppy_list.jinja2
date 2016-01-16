@@ -1,0 +1,10 @@
+<div class="embedded_puppy_photo_list">
+  {% if puppies|length %}
+  <h4 class="embedded_puppies_head">Puppies</h4>
+    {% for puppy in puppies %}
+    {% include "puppy_card.jinja2" %}
+    {% endfor %}
+  {% else %}
+  <div class="no_puppies_message">NO PUPPIES</div>
+  {% endif %}
+</div>

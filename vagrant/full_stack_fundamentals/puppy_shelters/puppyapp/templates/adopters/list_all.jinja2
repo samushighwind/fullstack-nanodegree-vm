@@ -1,6 +1,6 @@
-{% from "macros.html" import page_nav %}
+{% from "macros.jinja2" import page_nav %}
 
-{% extends "layout.html" %}
+{% extends "layout.jinja2" %}
 {% block content %}
 <div class="adopter_list">
   {% for adopter in adopters %}

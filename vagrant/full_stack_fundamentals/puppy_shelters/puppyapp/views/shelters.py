@@ -16,7 +16,7 @@ def list_all():
         Shelter.name
     )
     return render_template(
-        "shelters/list_all.html",
+        "shelters/list_all.jinja2",
         shelters=shelters,
         page=page,
         pagelimit=pagelimit
@@ -31,7 +31,7 @@ def profile(shelter_id):
         Puppy.name
     )
     return render_template(
-        "shelters/profile.html",
+        "shelters/profile.jinja2",
         shelter=shelter,
         puppies=puppies,
         page=page,
@@ -58,7 +58,7 @@ def new():
         flash(new_shelter.name + " has been registered!")
         return redirect(url_for("shelters.profile", shelter_id=new_shelter.id))
 
-    return render_template("shelters/new.html", form=form)
+    return render_template("shelters/new.jinja2", form=form)
 
 
 @shelters_bp.route("/<int:shelter_id>/edit/", methods=["GET", "POST"])
@@ -81,7 +81,7 @@ def edit(shelter_id):
             flash(shelter.name + "'s information has been updated.")
             return redirect(url_for("shelters.profile", shelter_id=shelter_id))
 
-    return render_template("shelters/edit.html", form=form, shelter=shelter)
+    return render_template("shelters/edit.jinja2", form=form, shelter=shelter)
 
 
 @shelters_bp.route("/<int:shelter_id>/delete/", methods=["GET", "POST"])
@@ -95,4 +95,4 @@ def delete(shelter_id):
         flash(shelter.name + " was deleted from the database.")
         return redirect(url_for("shelters.list_all"))
 
-    return render_template("shelters/delete.html", form=form, shelter=shelter)
+    return render_template("shelters/delete.jinja2", form=form, shelter=shelter)

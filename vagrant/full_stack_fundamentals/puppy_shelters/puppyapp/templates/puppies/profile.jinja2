@@ -1,0 +1,21 @@
+{% extends "layout.jinja2" %}
+{% block content %}
+<div class="puppy">
+  <h3 class="puppy_name">{{ puppy.name }}</h3>
+  {% if puppy.profile.picture and puppy.profile.picture|length %}
+  <img class="puppy_big_photo"
+       src="{{ puppy.profile.picture }}"
+       alt="A puppy named {{ puppy.name }}"/>
+  {% endif %}
+  <div class="puppy_bottom_panel">
+    {% include "puppy_info.jinja2" %}
+    <div class="puppy_options">
+      <div><a href="{{ url_for('puppies.edit', puppy_id=puppy.id) }}">Edit Puppy Info</a></div>
+      <div><a href="{{ url_for('puppies.delete', puppy_id=puppy.id) }}">Delete Puppy Profile</a></div>
+      <div><a href="{{ url_for('puppies.new_shelter', puppy_id=puppy.id) }}">Check puppy into new shelter</a></div>
+      <div><a href="{{ url_for('puppies.adopt', puppy_id=puppy.id) }}">Adopt puppy</a></div>
+    </div>
+  </div>
+  <a href="{{ url_for('puppies.list_all') }}">Go back</a>
+</div>
+{% endblock %}

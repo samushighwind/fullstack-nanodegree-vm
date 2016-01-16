@@ -1,6 +1,6 @@
-{% from "macros.html" import render_options_field %}
+{% from "macros.jinja2" import render_options_field %}
 
-{% extends "layout.html" %}
+{% extends "layout.jinja2" %}
 {% block content %}
 <form class="adopt_puppy" action="{{ url_for('puppies.adopt', puppy_id=puppy.id) }}" method="post" enc="multipart/form-data">
   {{ form.hidden_tag() }}

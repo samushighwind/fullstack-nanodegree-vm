@@ -1,4 +1,4 @@
-{% from "macros.html" import render_field %}
+{% from "macros.jinja2" import render_field %}
 
 {% macro render_adopter_profile_form(form, action, back_href, heading_text, submit_text, adopter=None) %}
 <form class="adopter_action" action="{{ action }}" method="post">

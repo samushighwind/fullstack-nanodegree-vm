@@ -1,0 +1,14 @@
+{% from "macros.jinja2" import page_nav %}
+
+{% extends "layout.jinja2" %}
+{% block content %}
+<div class="puppy_list">
+  {% for puppy in puppies %}
+  {% include "puppy_card.jinja2" %}
+  {% endfor %}
+</div>
+{% endblock %}
+
+{% block pagenav %}
+{{ page_nav(page, pagelimit, route="puppies.list_all") }}
+{% endblock %}

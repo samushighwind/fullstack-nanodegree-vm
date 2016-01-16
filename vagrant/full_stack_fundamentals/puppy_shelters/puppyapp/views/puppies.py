@@ -17,7 +17,7 @@ def list_all():
         Puppy.name
     )
     return render_template(
-        "puppies/list_all.html",
+        "puppies/list_all.jinja2",
         puppies=puppies,
         page=page,
         pagelimit=pagelimit
@@ -27,7 +27,7 @@ def list_all():
 @puppies_bp.route("/<int:puppy_id>/")
 def profile(puppy_id):
     puppy = Puppy.query.filter_by(id=puppy_id).one()
-    return render_template("puppies/profile.html", puppy=puppy)
+    return render_template("puppies/profile.jinja2", puppy=puppy)
 
 
 @puppies_bp.route("/new/", methods=["GET", "POST"])
@@ -51,7 +51,7 @@ def new():
         flash(new_puppy.name + " has been registered!")
         return redirect(url_for("puppies.profile", puppy_id=new_puppy.id))
 
-    return render_template("puppies/new.html", form=form)
+    return render_template("puppies/new.jinja2", form=form)
 
 
 @puppies_bp.route("/<int:puppy_id>/edit/", methods=["GET", "POST"])
@@ -74,7 +74,7 @@ def edit(puppy_id):
             flash(puppy.name + "'s information has been updated.")
             return redirect(url_for("puppies.profile", puppy_id=puppy_id))
 
-    return render_template("puppies/edit.html", form=form, puppy=puppy)
+    return render_template("puppies/edit.jinja2", form=form, puppy=puppy)
 
 
 @puppies_bp.route("/<int:puppy_id>/delete/", methods=["GET", "POST"])
@@ -89,7 +89,7 @@ def delete(puppy_id):
         flash(puppy.name + " was put to sleep.")
         return redirect(url_for("puppies.list_all"))
 
-    return render_template("puppies/delete.html", form=form, puppy=puppy)
+    return render_template("puppies/delete.jinja2", form=form, puppy=puppy)
 
 
 @puppies_bp.route("/<int:puppy_id>/switch_shelter/", methods=["GET", "POST"])
@@ -107,7 +107,7 @@ def new_shelter(puppy_id):
         return redirect(url_for("puppies.profile", puppy_id=puppy_id))
 
     return render_template(
-        "puppies/switch_shelter.html",
+        "puppies/switch_shelter.jinja2",
         form=form,
         puppy=puppy,
         shelters=shelters
@@ -128,7 +128,7 @@ def adopt(puppy_id):
         return redirect(url_for("puppies.profile", puppy_id=puppy_id))
 
     return render_template(
-        "puppies/adopt.html",
+        "puppies/adopt.jinja2",
         form=form,
         puppy=puppy,
         adopters=adopters
